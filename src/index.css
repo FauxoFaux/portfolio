@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sky-light: #3e88cf;
+  --color-sky-main: #3275b4;
+  --color-sky-deep: #28639c;
+  --color-sky-dark: #1e5080;
+  --color-sun-yellow: #FFD025;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+html, body, #root {
+  min-height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #3275b4;
+  color: #FFFFFF;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Light Editorial Tag */
+.work-card-tag {
+  background-color: #F4F4F5;
+  border: 1px solid #E4E4E7;
+  color: #18181B;
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  display: inline-block;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.work-card-tag:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+}
+
+/* Dropdown matching case-study */
+.cs-dropdown {
+  display: none;
+  position: absolute;
+  top: 44px;
+  right: 0;
+  background: #255d91;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  min-width: 220px;
+  box-shadow: 0 16px 36px rgba(0, 20, 60, 0.25);
+  overflow: hidden;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  padding: 4px 0;
+}
+
+.cs-dropdown.open {
+  display: block;
+}
+
+.cs-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cs-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.cs-dropdown-item:hover, .cs-dropdown-item:focus, .cs-dropdown-item:active, .cs-dropdown-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFD025;
+}
+
+/* Smooth custom scrollbar for Sky Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #255d92;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
