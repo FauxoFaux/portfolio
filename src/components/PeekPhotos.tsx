@@ -62,15 +62,22 @@ const PHOTOS: PhotoItem[] = [
   },
 ];
 
+type ScreenTier = 'mobile-sm' | 'mobile' | 'mobile-lg' | 'tablet' | 'desktop';
+
 export function PeekPhotos() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [screenTier, setScreenTier] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+  const [screenTier, setScreenTier] = useState<ScreenTier>('desktop');
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
+      const w = window.innerWidth;
+      if (w < 360) {
+        setScreenTier('mobile-sm');
+      } else if (w < 460) {
         setScreenTier('mobile');
-      } else if (window.innerWidth < 1024) {
+      } else if (w < 640) {
+        setScreenTier('mobile-lg');
+      } else if (w < 1024) {
         setScreenTier('tablet');
       } else {
         setScreenTier('desktop');
@@ -81,16 +88,40 @@ export function PeekPhotos() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // When hovered, lift up almost all of the submerged portion so it pops into full view
+  // Dismiss lifted photo on mobile when tapping outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const container = document.getElementById('peek-photos-container');
+      if (container && !container.contains(e.target as Node)) {
+        setHoveredId(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
+
+  // When hovered/tapped, lift up almost all of the submerged portion so it pops into full view
   const liftDistance =
-    screenTier === 'mobile' ? -58 : screenTier === 'tablet' ? -98 : -132;
+    screenTier === 'mobile-sm'
+      ? -36
+      : screenTier === 'mobile'
+      ? -46
+      : screenTier === 'mobile-lg'
+      ? -56
+      : screenTier === 'tablet'
+      ? -90
+      : -132;
 
   return (
     <div
       id="peek-photos-container"
-      className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-8 mt-12 sm:mt-16 md:mt-20 -mb-[68px] xs:-mb-[80px] sm:-mb-[110px] md:-mb-[128px] lg:-mb-[152px] select-none"
+      className="relative z-10 w-full max-w-[1400px] mx-auto px-2 min-[380px]:px-4 sm:px-8 mt-10 sm:mt-16 md:mt-20 -mb-[34px] min-[360px]:-mb-[40px] min-[400px]:-mb-[46px] min-[480px]:-mb-[56px] sm:-mb-[76px] md:-mb-[96px] lg:-mb-[118px] xl:-mb-[138px] select-none"
     >
-      <div className="flex justify-center items-end -space-x-3 xs:-space-x-4 sm:-space-x-6 md:-space-x-8 lg:-space-x-10 pointer-events-none">
+      <div className="flex justify-center items-end -space-x-2 min-[360px]:-space-x-2.5 min-[420px]:-space-x-3.5 sm:-space-x-5 md:-space-x-6 lg:-space-x-8 xl:-space-x-10 pointer-events-none">
         {PHOTOS.map((photo) => {
           const isHovered = hoveredId === photo.id;
 
@@ -98,15 +129,18 @@ export function PeekPhotos() {
             <motion.div
               key={photo.id}
               id={`peek-photo-${photo.id}`}
-              className="relative shrink-0 pointer-events-auto cursor-pointer origin-bottom"
+              className="relative shrink-0 pointer-events-auto cursor-pointer origin-bottom touch-manipulation focus:outline-none"
+              role="button"
+              tabIndex={0}
+              aria-label={photo.alt}
               style={{
-                zIndex: isHovered ? 25 : photo.zIndex,
+                zIndex: isHovered ? 30 : photo.zIndex,
               }}
               initial={false}
               animate={{
                 y: isHovered ? liftDistance : 0,
                 rotate: isHovered ? photo.hoverRotate : photo.defaultRotate,
-                scale: isHovered ? 1.06 : 1,
+                scale: isHovered ? (screenTier.startsWith('mobile') ? 1.08 : 1.06) : 1,
               }}
               transition={{
                 type: 'spring',
@@ -117,17 +151,23 @@ export function PeekPhotos() {
               onMouseEnter={() => setHoveredId(photo.id)}
               onMouseLeave={() => setHoveredId((current) => (current === photo.id ? null : current))}
               onClick={() => setHoveredId((current) => (current === photo.id ? null : photo.id))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setHoveredId((current) => (current === photo.id ? null : photo.id));
+                }
+              }}
             >
               {/* Slim, crisp white border polaroid-style frame */}
               <div
-                className={`bg-white p-1 sm:p-1.5 md:p-2 rounded-sm sm:rounded-md md:rounded-lg border border-[#DFE7EF] transition-shadow duration-300 ${
+                className={`bg-white p-1 sm:p-1.5 md:p-2 rounded-[3px] sm:rounded-md md:rounded-lg border border-[#DFE7EF] transition-shadow duration-300 ${
                   isHovered
-                    ? 'shadow-[0_24px_48px_-8px_rgba(0,0,0,0.22),0_12px_24px_-4px_rgba(0,0,0,0.12)]'
-                    : 'shadow-[0_6px_18px_-2px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)]'
+                    ? 'shadow-[0_20px_40px_-6px_rgba(0,0,0,0.25),0_10px_20px_-3px_rgba(0,0,0,0.15)]'
+                    : 'shadow-[0_4px_14px_-2px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.05)]'
                 }`}
               >
-                {/* Photo frame with responsive dimensions */}
-                <div className="w-22 xs:w-26 sm:w-36 md:w-44 lg:w-52 xl:w-56 h-30 xs:h-36 sm:h-50 md:h-58 lg:h-68 xl:h-74 overflow-hidden rounded-[1px] sm:rounded-xs bg-slate-100">
+                {/* Photo frame with responsive dimensions and fixed 4/5 aspect ratio */}
+                <div className="w-[48px] min-[360px]:w-[54px] min-[400px]:w-[62px] min-[480px]:w-[74px] sm:w-28 md:w-36 lg:w-44 xl:w-52 aspect-[4/5] overflow-hidden rounded-[1px] sm:rounded-xs bg-slate-100">
                   <img
                     src={photo.src}
                     alt={photo.alt}

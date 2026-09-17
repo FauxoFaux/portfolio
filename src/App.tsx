@@ -856,13 +856,13 @@ export default function App() {
                 Whether you're exploring a new product, improving an existing one, or just want to talk about design, feel free to reach out.
               </p>
 
-              <div className="mt-6 sm:mt-8">
+              <div className="mt-6 sm:mt-8 max-w-full">
                 <a
                   href="mailto:itskeerthanaravichandran@gmail.com"
-                  className="inline-flex items-center gap-2 text-lg sm:text-2xl font-mono text-[#FFD025] hover:text-white underline underline-offset-8 transition-colors font-bold tracking-tight"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[13.5px] min-[360px]:text-[15px] min-[420px]:text-[17px] sm:text-xl md:text-2xl font-mono text-[#FFD025] hover:text-white underline underline-offset-4 sm:underline-offset-8 transition-colors font-bold tracking-tight max-w-full break-all py-1"
                 >
-                  <span>itskeerthanaravichandran@gmail.com</span>
-                  <span>↗</span>
+                  <span className="break-all">itskeerthanaravichandran@gmail.com</span>
+                  <span className="shrink-0 text-base sm:text-xl select-none" aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>
@@ -938,8 +938,8 @@ export default function App() {
         </section>
 
         {/* FOOTER */}
-        <footer className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 py-8 text-[11.5px] font-mono tracking-[0.18em] uppercase text-white font-medium border-t border-white/15 bg-transparent">
-          <span>© 2026 Keerthana Ravichandran</span>
+        <footer className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 py-6 sm:py-8 text-[10.5px] sm:text-[11.5px] font-mono tracking-[0.14em] sm:tracking-[0.18em] uppercase text-white font-medium border-t border-white/15 bg-transparent">
+          <span className="break-words">© 2026 Keerthana Ravichandran</span>
         </footer>
       </main>
 
@@ -957,7 +957,7 @@ export default function App() {
 
             <div className="border-b border-neutral-200 pb-6">
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-black mt-1">Keerthana Ravichandran</h2>
-              <p className="text-sm font-mono text-neutral-700 font-medium mt-2">Senior Product Designer | US / Remote | itskeerthanaravichandran@gmail.com</p>
+              <p className="text-xs sm:text-sm font-mono text-neutral-700 font-medium mt-2 break-all sm:break-normal">Senior Product Designer | US / Remote | itskeerthanaravichandran@gmail.com</p>
             </div>
 
             <div className="py-6 space-y-8">
