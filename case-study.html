@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Study — Keerthana Ravichandran</title>
-    <link rel="icon" type="image/svg+xml" href="/Favicon_Black.svg" />
+    <!-- Light Mode Favicon (loads when system is light) -->
+<link rel="icon" type="image/svg+xml" href="/Favicon.svg" media="(prefers-color-scheme: light)" />
+
+<!-- Dark Mode Favicon (loads when system is dark) -->
+<link rel="icon" type="image/svg+xml" href="/Faviconwhite.svg" media="(prefers-color-scheme: dark)" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,6 +141,143 @@
         #cs-password-input:focus-visible,
         #cs-password-input:active {
             border-color: #FFD025 !important;
+        }
+
+        /* Vintage Custom Cursor */
+        @media (hover: hover) and (pointer: fine) {
+            html, body, * {
+                cursor: url('/vintage-cursor.svg') 0 0, auto;
+            }
+
+            a, a *,
+            button, button *,
+            [role="button"], [role="button"] *,
+            input[type="submit"], input[type="button"], input[type="reset"],
+            select, label, summary,
+            .cursor-pointer, .cursor-pointer * {
+                cursor: url('/vintage-pointer.svg') 6 0, pointer !important;
+            }
+
+            input[type="text"], input[type="password"], input[type="email"], input[type="search"], textarea, [contenteditable="true"] {
+                cursor: text !important;
+            }
+
+            [disabled], .disabled, [aria-disabled="true"], [disabled] * {
+                cursor: not-allowed !important;
+            }
+        }
+
+        /* Editorial Motion System matching Homepage */
+        :root {
+            --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes csFadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes csFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cs-nav-animate {
+            animation: csFadeDown 0.65s var(--ease-editorial) both;
+        }
+
+        .cs-hero-title-animate {
+            animation: csFadeUp 0.8s var(--ease-editorial) 0.08s both;
+        }
+
+        .cs-hero-headline-animate {
+            animation: csFadeUp 0.8s var(--ease-editorial) 0.2s both;
+        }
+
+        .cs-meta-animate {
+            animation: csFadeUp 0.8s var(--ease-editorial) 0.32s both;
+        }
+
+        .cs-hero-img-animate {
+            animation: csFadeUp 0.85s var(--ease-editorial) 0.44s both;
+        }
+
+        /* Scroll-triggered reveal matching Framer Motion whileInView */
+        .cs-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s var(--ease-editorial), transform 0.65s var(--ease-editorial);
+            will-change: opacity, transform;
+        }
+
+        .cs-reveal.cs-revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive card hover elevation */
+        .cs-hover-card {
+            transition: transform 0.3s var(--ease-editorial), box-shadow 0.3s var(--ease-editorial), border-color 0.3s var(--ease-editorial);
+        }
+        .cs-hover-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Yellow Scroll Progress Loader below top nav */
+        #cs-scroll-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        #cs-scroll-progress {
+            height: 100%;
+            width: 0%;
+            background-color: #FFD025;
+            box-shadow: 0 0 10px rgba(255, 208, 37, 0.8), 0 0 4px rgba(255, 208, 37, 0.9);
+            will-change: width;
+            transition: width 60ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #cs-scroll-progress {
+                transition: none !important;
+            }
+            .cs-nav-animate,
+            .cs-hero-title-animate,
+            .cs-hero-headline-animate,
+            .cs-meta-animate,
+            .cs-hero-img-animate {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .cs-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .cs-hover-card:hover {
+                transform: none !important;
+            }
         }
 
         /* Smooth custom scrollbar */
@@ -297,7 +439,7 @@
     ></div>
 
     <!-- Sticky Navigation Header matching App.tsx -->
-    <header id="cs-header-nav" class="sticky top-0 z-50 w-full bg-[#3275b4]/90 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4">
+    <header id="cs-header-nav" class="sticky top-0 z-50 w-full bg-[#3275b4]/90 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4 cs-nav-animate relative">
         <nav class="mx-auto max-w-[1300px] w-full flex items-center justify-between">
             <!-- Logo -->
             <a href="/#top" class="flex items-center text-white hover:text-[#FFD025] transition-colors shrink-0" aria-label="Keerthana R. Home">
@@ -442,6 +584,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Yellow Scroll Progress Loader below top nav -->
+        <div 
+            id="cs-scroll-progress-track"
+            aria-hidden="true"
+        >
+            <div id="cs-scroll-progress"></div>
+        </div>
     </header>
 
     <!-- Backdrop overlay for mobile menu -->
@@ -556,6 +706,9 @@
             const dropdown = document.getElementById('cs-dropdown');
             if (dropdown) dropdown.classList.remove('open');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (typeof updateScrollProgress === 'function') {
+                updateScrollProgress();
+            }
         }
 
         window.addEventListener('popstate', () => {
@@ -568,16 +721,16 @@
 
         <!-- Case Study Header -->
         <header class="pb-0">
-            <h1 id="cs-title" class="font-display text-[44px] sm:text-[68px] md:text-[84px] lg:text-[96px] font-bold leading-[0.95] text-white tracking-tight uppercase">
+            <h1 id="cs-title" class="font-display text-[44px] sm:text-[68px] md:text-[84px] lg:text-[96px] font-bold leading-[0.95] text-white tracking-tight uppercase cs-hero-title-animate">
                 YOUTOPIA
             </h1>
-            <p id="cs-headline" class="mt-4 sm:mt-6 text-[16px] sm:text-[18px] md:text-[20px] leading-[1.68] text-white max-w-4xl font-sans font-normal">
+            <p id="cs-headline" class="mt-4 sm:mt-6 text-[16px] sm:text-[17px] md:text-[20px] leading-[1.68] text-white max-w-4xl font-sans font-normal cs-hero-headline-animate">
                 Designing six interconnected products from consumer onboarding to restaurant operations around a shared AI nutrition platform still being defined.
             </p>
         </header>
 
         <!-- Project Metadata Card (Role, Duration, Team, Shipped, Responsibilities) -->
-        <section class="border-y border-white/20 py-8 text-white mt-8 sm:mt-12 mb-12 sm:mb-16">
+        <section id="cs-meta-section" class="border-y border-white/20 py-8 text-white mt-8 sm:mt-12 mb-12 sm:mb-16 cs-meta-animate">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                 <div>
                     <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">ROLE</span>
@@ -658,7 +811,7 @@
         <!-- Main Content Area -->
         <div id="cs-main-content">
             <!-- Hero Image Placeholder Card -->
-            <div id="cs-hero-image" class="image-placeholder-card min-h-[280px] sm:min-h-[360px] flex items-center justify-center rounded-2xl mb-10 sm:mb-16">
+            <div id="cs-hero-image" class="image-placeholder-card min-h-[280px] sm:min-h-[360px] flex items-center justify-center rounded-2xl mb-10 sm:mb-16 cs-hero-img-animate">
                 Hero image — 16:9 or full-bleed
             </div>
 
@@ -886,15 +1039,15 @@
                     research: {
                         intro: "Research wasn't a separate phase it happened through working sessions with architects, PMs, and the founder, and through direct usage data on the original onboarding and website.",
                         insights: [
-                            { title: "Users abandoned onboarding before reaching any explanation of PNA's value", description: "education needed to come before commitment, not after." },
-                            { title: "Real households don't fit one account structure", description: "divorced parents, teens, and college dorms all needed different membership behavior." },
-                            { title: "Producers didn't need less information", description: "they needed the right information hidden from the wrong one." }
+                            { title: "Users abandoned onboarding before reaching any explanation of PNA's value", description: "Education needed to come before commitment, not after." },
+                            { title: "Real households don't fit one account structure", description: "Divorced parents, teens, and college dorms all needed different membership behavior." },
+                            { title: "Producers didn't need less information", description: "They needed the right information hidden from the wrong one." }
                         ]
                     },
                     strategy: [
-                        { title: "Teach before asking for commitment", description: "earn understanding before requesting a decision." },
-                        { title: "Decide what users should never have to think about", description: "hide computation, not capability." },
-                        { title: "Design the model before the interface", description: "for ops and membership, product logic came first." }
+                        { title: "Teach before asking for commitment", description: "Earn understanding before requesting a decision." },
+                        { title: "Decide what users should never have to think about", description: "Hide computation, not capability." },
+                        { title: "Design the model before the interface", description: "For ops and membership, product logic came first." }
                     ],
                     decisions: [
                         {
@@ -1431,9 +1584,9 @@
                     research: {
                         intro: "I studied control placement, spatial hierarchy, interaction feedback, and navigation patterns directly with researchers using REVLR to model real problems, not abstract test tasks.",
                         insights: [
-                            { title: "Spatial interfaces demand designing for attention", description: "every control competes with the environment and has to justify its presence." },
-                            { title: "Persistent UI created distraction;", description: "contextual, appear-when-needed interactions supported exploration instead." },
-                            { title: "Feedback is critical in VR", description: "without a cursor state to rely on, users need explicit confirmation an action registered." }
+                            { title: "Spatial interfaces demand designing for attention", description: "Every control competes with the environment and has to justify its presence." },
+                            { title: "Persistent UI created distraction;", description: "Contextual, appear-when-needed interactions supported exploration instead." },
+                            { title: "Feedback is critical in VR", description: "Without a cursor state to rely on, users need explicit confirmation an action registered." }
                         ],
                         placeholder: "Research & discovery — spatial hierarchy & control placement studies in VR",
                         researchHTML: `
@@ -1443,9 +1596,9 @@
                         `
                     },
                     strategy: [
-                        { title: "Reduce visual interruption", description: "controls support interaction without competing with the system model." },
-                        { title: "Create predictable behaviors", description: "interactions stay consistent across different actions and contexts." },
-                        { title: "Design for scalability", description: "components need to extend across future VR and web experiences." }
+                        { title: "Reduce visual interruption", description: "Controls support interaction without competing with the system model." },
+                        { title: "Create predictable behaviors", description: "Interactions stay consistent across different actions and contexts." },
+                        { title: "Design for scalability", description: "Components need to extend across future VR and web experiences." }
                     ],
                     decisions: [
                         {
@@ -1540,9 +1693,9 @@
                     research: {
                         intro: "Worked directly with the T.H.E. EJ Lab team, WYPR hosts, and community partners, alongside a review of app store feedback, support tickets, and a competitive scan of 3–4 other civic engagement apps plus the engineering team, to understand what was actually feasible to rebuild in the timeline.",
                         insights: [
-                            { title: "Cultural representation in illustrations directly affected trust and completion", description: "this wasn't a usability problem alone, it was a trust problem wearing a usability costume." },
-                            { title: "Context before data collection", description: "surveys without upfront mission context felt like government extraction rather than community empowerment." },
-                            { title: "Multilingual as a primary trust signal", description: "surfacing language choice upfront communicated community inclusion from the very first screen." }
+                            { title: "Cultural representation in illustrations directly affected trust and completion", description: "This wasn't a usability problem alone, it was a trust problem wearing a usability costume." },
+                            { title: "Context before data collection", description: "Surveys without upfront mission context felt like government extraction rather than community empowerment." },
+                            { title: "Multilingual as a primary trust signal", description: "Surfacing language choice upfront communicated community inclusion from the very first screen." }
                         ],
                         researchHTML: `
                             <div class="w-full border border-[#2036B8] dark:border-[#5A6BFF] rounded-2xl bg-transparent p-5 sm:p-8 md:p-10 my-8 shadow-sm overflow-hidden">
@@ -1671,9 +1824,9 @@
                         `
                     },
                     strategy: [
-                        { title: "Signal trust before asking for data", description: "language and tone had to say 'built for you' before the survey began." },
-                        { title: "Translate civic categories into lived concerns", description: "abstract survey language doesn't move people; specific ones do." },
-                        { title: "Make completing the survey feel like participation, not paperwork", description: "frame progress as community impact rather than administrative form completion." }
+                        { title: "Signal trust before asking for data", description: "Language and tone had to say 'built for you' before the survey began." },
+                        { title: "Translate civic categories into lived concerns", description: "Abstract survey language doesn't move people; specific ones do." },
+                        { title: "Make completing the survey feel like participation, not paperwork", description: "Frame progress as community impact rather than administrative form completion." }
                     ],
                     decisions: [
                         {
@@ -1926,9 +2079,9 @@
                         title: "System audit",
                         intro: "I audited the booking journey end to end across app and web, specifically looking for repeated patterns and where reusability was already breaking down. The finding: this wasn't a design-quality problem, it was a source-of-truth problem. Every new feature was re-negotiating spacing, states, and components that an earlier feature had already solved.\n\nThe real decision: product wanted forward motion. Every week without a new feature was pressure to just ship the next one. I made the case that shipping without a shared foundation wasn't saving time, it was compounding debt that would eventually slow delivery to a crawl. The trade-off I offered: pause new feature work briefly to build the system on the highest-stakes, most-repeated screen first, seat selection and payment, so everything after it would ship faster, not slower. That argument won on the evidence that every prior feature had already needed its own one-off component work; the system was the fix, not a delay.",
                         insights: [
-                            { title: "Source-of-truth problem, not design quality", description: "every new feature was re-negotiating spacing, states, and components that an earlier feature had already solved." },
-                            { title: "Forward motion vs. compounding debt", description: "shipping one-off components felt fast initially, but compounded technical and visual debt that slowed overall delivery." },
-                            { title: "Anchor the system on highest-stakes patterns", description: "standardizing the seat selection and payment checkout screens first created the reusable foundation for all subsequent features." }
+                            { title: "Source-of-truth problem, not design quality", description: "Every new feature was re-negotiating spacing, states, and components that an earlier feature had already solved." },
+                            { title: "Forward motion vs. compounding debt", description: "Shipping one-off components felt fast initially, but compounded technical and visual debt that slowed overall delivery." },
+                            { title: "Anchor the system on highest-stakes patterns", description: "Standardizing the seat selection and payment checkout screens first created the reusable foundation for all subsequent features." }
                         ]
                     },
                     decisions: [
@@ -1937,7 +2090,7 @@
                             title: "BEFORE / AFTER SEAT SELECTION AND PAYMENT",
                             body: "This became the system's reference standard because it was the highest-stakes, most-repeated pattern in the app. Before: Inconsistent spacing and unclear seat states created friction at checkout the exact moment users were closest to abandoning if something felt uncertain. After: Defined and standardized four explicit seat states available, selected, reserved, blocked with consistent spacing and hierarchy carried through the entire booking flow. One more product decision, not just a component one: food & beverage ordering could have shipped as its own ecommerce-style flow, separate from ticket booking. I chose to fold it into checkout using the same component patterns as the rest of the app instead so buying snacks felt like one more step in getting your ticket, not a second app bolted onto the first.",
                             impact: "IMPACT: STANDARDIZED 4 SEAT STATES & INTEGRATED FOOD & BEVERAGE ORDERING INTO CHECKOUT FLOW.",
-                            image: "/JT/JT_Offers.png"
+                            image: "/JT/JT_Seat.png"
                         },
                         {
                             num: "DECISION 02",
@@ -1982,12 +2135,12 @@
         };
 
         function renderCaseStudyHTML(data) {
-            const DIVIDER = `<div class="border-t border-white/20 my-10 sm:my-14"></div>`;
+            const DIVIDER = `<div class="border-t border-white/20 my-10 sm:my-14 cs-reveal"></div>`;
             let sections = [];
 
             if (data.ndaNotice) {
                 sections.push(`
-                    <div class="p-4 sm:p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md text-[13.5px] md:text-[14.5px] text-white w-full font-mono shadow-md font-medium">
+                    <div class="p-4 sm:p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md text-[13.5px] md:text-[14.5px] text-white w-full font-mono shadow-md font-medium cs-reveal cs-hover-card">
                         <span class="font-bold text-[#FFD025] uppercase tracking-wider">NDA Note:</span> ${data.ndaNotice}
                     </div>
                 `);
@@ -1995,7 +2148,7 @@
 
             // 1. CONTEXT
             sections.push(`
-                <section class="space-y-4">
+                <section class="space-y-4 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">CONTEXT</h2>
                     <p class="text-[15px] sm:text-[16px] md:text-[17px] leading-[1.72] text-white w-full font-normal">
                         ${data.context}
@@ -2011,17 +2164,17 @@
                 </div>
             `).join('');
 
-            let problemCard = data.problem.problemHTML ? data.problem.problemHTML : (data.problem.placeholder ? `<div class="image-placeholder-card">${data.problem.placeholder}</div>` : '');
+            let problemCard = data.problem.problemHTML ? data.problem.problemHTML : (data.problem.placeholder ? `<div class="image-placeholder-card cs-hover-card">${data.problem.placeholder}</div>` : '');
 
             sections.push(`
-                <section class="space-y-5 sm:space-y-6">
+                <section class="space-y-5 sm:space-y-6 cs-reveal">
                     <div class="space-y-2 sm:space-y-3">
                         <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">PROBLEM DEFINITION</h2>
                         <p class="text-[15px] sm:text-[16.5px] md:text-[17px] font-medium leading-[1.68] text-white w-full">
                             ${data.problem.headline}
                         </p>
                     </div>
-                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md overflow-hidden shadow-md divide-y divide-white/15 w-full">
+                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md overflow-hidden shadow-md divide-y divide-white/15 w-full cs-hover-card">
                         ${problemPointsHTML}
                     </div>
                     ${problemCard}
@@ -2033,7 +2186,7 @@
             let insightsHTML = (data.research.insights && data.research.insights.length > 0) ? `
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 pt-3 sm:pt-5 my-4 sm:my-6">
                     ${data.research.insights.map(item => `
-                        <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-start shadow-lg hover:border-white/35 transition-all">
+                        <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-start shadow-lg hover:border-white/35 transition-all cs-reveal cs-hover-card">
                             <div class="w-2.5 h-2.5 rounded-full bg-[#FFD025] mb-4 shrink-0"></div>
                             <h3 class="font-display font-bold text-white text-[16px] sm:text-[17.5px] leading-[1.3] mb-3">${item.title}</h3>
                             <p class="text-[13.5px] sm:text-[14.5px] leading-[1.65] text-white font-normal">${item.description}</p>
@@ -2042,7 +2195,7 @@
                 </div>
             ` : '';
 
-            let researchCard = data.research.researchHTML ? data.research.researchHTML : (data.research.placeholder ? `<div class="image-placeholder-card">${data.research.placeholder}</div>` : '');
+            let researchCard = data.research.researchHTML ? data.research.researchHTML : (data.research.placeholder ? `<div class="image-placeholder-card cs-hover-card">${data.research.placeholder}</div>` : '');
 
             let researchParagraphs = data.research.intro.split('\n\n').map(p => `
                 <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full mb-3 sm:mb-4 font-normal">
@@ -2051,7 +2204,7 @@
             `).join('');
 
             sections.push(`
-                <section class="space-y-4">
+                <section class="space-y-4 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">${researchTitle}</h2>
                     <div>
                         ${researchParagraphs}
@@ -2064,7 +2217,7 @@
             // 4. DESIGN STRATEGY (In the style of homepage Design Principles)
             if (data.strategy && data.strategy.length > 0) {
                 let strategyHTML = data.strategy.map((item, idx) => `
-                    <div class="flex flex-col justify-start">
+                    <div class="flex flex-col justify-start cs-reveal">
                         <span class="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">0${idx + 1}</span>
                         <h3 class="font-display text-[17px] sm:text-[18px] md:text-[19px] font-bold text-white leading-[1.3]">
                             ${item.title}
@@ -2076,7 +2229,7 @@
                 `).join('');
 
                 sections.push(`
-                    <section class="pt-2 sm:pt-4 pb-2">
+                    <section class="pt-2 sm:pt-4 pb-2 cs-reveal">
                         <h2 class="font-display text-[28px] sm:text-[38px] md:text-[48px] font-bold leading-[1.08] text-white mb-8 sm:mb-12 tracking-tight uppercase">
                             DESIGN STRATEGY
                         </h2>
@@ -2099,7 +2252,7 @@
                 if (data.decisionsLayout === "stacked" || dec.layout === "stacked") {
                     let imageSrc = dec.image || "/JT_Offer.webp";
                     return `
-                        <div class="w-full py-8 sm:py-10 ${isLast ? 'pb-2' : 'border-b border-white/15'} my-4 space-y-6 sm:space-y-8">
+                        <div class="w-full py-8 sm:py-10 ${isLast ? 'pb-2' : 'border-b border-white/15'} my-4 space-y-6 sm:space-y-8 cs-reveal">
                             <!-- Decision Text & Impact (Top) -->
                             <div class="space-y-4 sm:space-y-6 w-full">
                                 <div>
@@ -2123,7 +2276,7 @@
                             </div>
                             <!-- Image Mockup Under Decision (Bottom) -->
                             <div class="w-full flex justify-center items-center pt-2 sm:pt-4">
-                                <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-md flex justify-center items-center">
+                                <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-md flex justify-center items-center cs-hover-card">
                                     <img src="${imageSrc}" alt="${dec.title}" class="w-auto max-h-[420px] sm:max-h-[500px] md:max-h-[580px] object-contain transition-transform duration-300 hover:scale-[1.02]" loading="lazy" decoding="async" />
                                 </div>
                             </div>
@@ -2134,7 +2287,7 @@
                 if (data.decisionsLayout === "side-card" || dec.layout === "side-card") {
                     let imageSrc = dec.image || "/JT_Offer.webp";
                     return `
-                        <div class="w-full py-8 sm:py-10 ${isLast ? 'pb-2' : 'border-b border-white/15'} my-4">
+                        <div class="w-full py-8 sm:py-10 ${isLast ? 'pb-2' : 'border-b border-white/15'} my-4 cs-reveal">
                             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-12 items-center">
                                 <!-- Left Column (6 Cols): Content & Impact -->
                                 <div class="lg:col-span-6 flex flex-col justify-between h-full space-y-4 sm:space-y-6">
@@ -2159,7 +2312,7 @@
                                 </div>
                                 <!-- Right Column (6 Cols): Image Mockup -->
                                 <div class="lg:col-span-6 flex justify-center items-center py-2 sm:py-4">
-                                    <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 shadow-md flex justify-center items-center">
+                                    <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 shadow-md flex justify-center items-center cs-hover-card">
                                         <img src="${imageSrc}" alt="${dec.title}" class="w-auto max-h-[360px] sm:max-h-[440px] md:max-h-[500px] object-contain transition-transform duration-300 hover:scale-[1.02]" loading="lazy" decoding="async" />
                                     </div>
                                 </div>
@@ -2170,14 +2323,14 @@
 
                 let card = dec.decisionHTML ? dec.decisionHTML : (dec.image ? `
                     <div class="w-full flex justify-center items-center pt-2 sm:pt-4">
-                        <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-md flex justify-center items-center">
+                        <div class="w-full rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-md flex justify-center items-center cs-hover-card">
                             <img src="${dec.image}" alt="${dec.title}" class="w-auto max-h-[420px] sm:max-h-[500px] md:max-h-[580px] object-contain transition-transform duration-300 hover:scale-[1.02]" loading="lazy" decoding="async" />
                         </div>
                     </div>
-                ` : (dec.placeholder ? `<div class="image-placeholder-card">${dec.placeholder}</div>` : ''));
+                ` : (dec.placeholder ? `<div class="image-placeholder-card cs-hover-card">${dec.placeholder}</div>` : ''));
 
                 return `
-                    <div class="space-y-4 sm:space-y-6 w-full">
+                    <div class="space-y-4 sm:space-y-6 w-full cs-reveal">
                         <div>
                             <div class="font-mono text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] tracking-[0.15em] uppercase font-bold mb-1.5 sm:mb-2">${dec.num}</div>
                             <h3 class="font-display font-bold text-[20px] sm:text-[24px] md:text-[28px] leading-[1.25] text-white mb-2 sm:mb-3">
@@ -2199,10 +2352,10 @@
                 `;
             }).join('');
 
-            let decisionsCard = data.decisionsHTML ? data.decisionsHTML : (data.decisionsPlaceholder ? `<div class="image-placeholder-card">${data.decisionsPlaceholder}</div>` : '');
+            let decisionsCard = data.decisionsHTML ? data.decisionsHTML : (data.decisionsPlaceholder ? `<div class="image-placeholder-card cs-hover-card">${data.decisionsPlaceholder}</div>` : '');
 
             sections.push(`
-                <section class="space-y-6 sm:space-y-12">
+                <section class="space-y-6 sm:space-y-12 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">KEY DESIGN DECISIONS</h2>
                     <div class="space-y-10 sm:space-y-16 w-full">
                         ${decisionsHTML}
@@ -2213,9 +2366,9 @@
 
             // 6. SYSTEM & EXECUTION
             let systemTitle = data.systemTitle || 'SYSTEM & EXECUTION';
-            let sysCard = data.systemHTML ? data.systemHTML : (data.systemPlaceholder ? `<div class="image-placeholder-card">${data.systemPlaceholder}</div>` : '');
+            let sysCard = data.systemHTML ? data.systemHTML : (data.systemPlaceholder ? `<div class="image-placeholder-card cs-hover-card">${data.systemPlaceholder}</div>` : '');
             sections.push(`
-                <section class="space-y-4">
+                <section class="space-y-4 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">${systemTitle}</h2>
                     <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                         ${data.system}
@@ -2226,9 +2379,9 @@
 
             // 7. VALIDATION
             if (data.validation) {
-                let valCard = data.validationHTML ? data.validationHTML : (data.validationPlaceholder ? `<div class="image-placeholder-card">${data.validationPlaceholder}</div>` : '');
+                let valCard = data.validationHTML ? data.validationHTML : (data.validationPlaceholder ? `<div class="image-placeholder-card cs-hover-card">${data.validationPlaceholder}</div>` : '');
                 sections.push(`
-                    <section class="space-y-4">
+                    <section class="space-y-4 cs-reveal">
                         <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">VALIDATION</h2>
                         <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                             ${data.validation}
@@ -2248,21 +2401,21 @@
             `).join('');
 
             sections.push(`
-                <section class="space-y-4 sm:space-y-5">
+                <section class="space-y-4 sm:space-y-5 cs-reveal">
                     <div class="space-y-2 sm:space-y-2.5">
                         <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">OUTCOME</h2>
                         ${outcomeSubtext}
                     </div>
-                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md overflow-hidden shadow-md divide-y divide-white/15 w-full">
+                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md overflow-hidden shadow-md divide-y divide-white/15 w-full cs-hover-card">
                         ${outcomePointsHTML}
                     </div>
                 </section>
             `);
 
             // 9. REFLECTION
-            let reflectionCard = data.reflectionHTML ? data.reflectionHTML : (data.reflectionPlaceholder ? `<div class="image-placeholder-card">${data.reflectionPlaceholder}</div>` : '');
+            let reflectionCard = data.reflectionHTML ? data.reflectionHTML : (data.reflectionPlaceholder ? `<div class="image-placeholder-card cs-hover-card">${data.reflectionPlaceholder}</div>` : '');
             sections.push(`
-                <section class="space-y-4">
+                <section class="space-y-4 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">REFLECTION</h2>
                     <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                         ${data.reflection}
@@ -2273,9 +2426,9 @@
 
             // 10. OWNERSHIP
             sections.push(`
-                <section class="space-y-5 sm:space-y-6">
+                <section class="space-y-5 sm:space-y-6 cs-reveal">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">OWNERSHIP</h2>
-                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 space-y-6 shadow-md w-full">
+                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-8 space-y-6 shadow-md w-full cs-hover-card">
                         <div>
                             <span class="text-[11px] sm:text-[11.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-bold block mb-1.5">I LED</span>
                             <p class="text-[14px] sm:text-[15px] md:text-[15.5px] leading-[1.68] text-white font-normal">${data.ownership.led}</p>
@@ -2322,6 +2475,7 @@
                 youtopiaUnlocked = true;
                 if (errorEl) errorEl.classList.add('hidden');
                 renderCaseStudy();
+                setTimeout(updateScrollProgress, 50);
             } else {
                 if (errorEl) {
                     errorEl.classList.remove('hidden');
@@ -2383,13 +2537,19 @@
                 if (project.heroHTML) {
                     heroElem.outerHTML = project.heroHTML;
                 } else {
-                    heroElem.outerHTML = `<div id="cs-hero-image" class="image-placeholder-card min-h-[360px] flex items-center justify-center rounded-2xl mb-16">Hero image — 16:9 or full-bleed</div>`;
+                    heroElem.outerHTML = `<div id="cs-hero-image" class="image-placeholder-card min-h-[360px] flex items-center justify-center rounded-2xl mb-16 cs-hero-img-animate">Hero image — 16:9 or full-bleed</div>`;
+                }
+                const newHero = document.getElementById('cs-hero-image');
+                if (newHero && !newHero.classList.contains('cs-hero-img-animate')) {
+                    newHero.classList.add('cs-hero-img-animate');
                 }
             }
 
             const contentBody = document.getElementById('cs-content-body');
             if (contentBody) {
                 contentBody.innerHTML = renderCaseStudyHTML(project.content);
+                initScrollReveals();
+                setTimeout(updateScrollProgress, 50);
             }
 
             // Highlight active project in desktop dropdown & mobile drawer
@@ -2409,8 +2569,66 @@
             });
         }
 
+        // Yellow Scroll Progress Loader below top nav
+        let progressTicking = false;
+
+        function updateScrollProgress() {
+            const progressBar = document.getElementById('cs-scroll-progress');
+            if (!progressBar) return;
+
+            const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            if (docHeight <= 0) {
+                progressBar.style.width = '0%';
+                return;
+            }
+
+            const progress = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+            progressBar.style.width = progress + '%';
+        }
+
+        function onScrollProgress() {
+            if (!progressTicking) {
+                window.requestAnimationFrame(() => {
+                    updateScrollProgress();
+                    progressTicking = false;
+                });
+                progressTicking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onScrollProgress, { passive: true });
+        window.addEventListener('resize', onScrollProgress, { passive: true });
+        window.addEventListener('load', updateScrollProgress);
+
+        let scrollRevealObserver = null;
+
+        function initScrollReveals() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelectorAll('.cs-reveal').forEach(el => el.classList.add('cs-revealed'));
+                return;
+            }
+            if (scrollRevealObserver) {
+                scrollRevealObserver.disconnect();
+            }
+            scrollRevealObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('cs-revealed');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+
+            document.querySelectorAll('.cs-reveal:not(.cs-revealed)').forEach(el => {
+                scrollRevealObserver.observe(el);
+            });
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             renderCaseStudy();
+            updateScrollProgress();
         });
     </script>
 </body>

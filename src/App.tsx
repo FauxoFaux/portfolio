@@ -1,8 +1,89 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Lock, ExternalLink, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, Lock, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import { PeekPhotos } from './components/PeekPhotos';
 
+const EASE_EDITORIAL = [0.16, 1, 0.3, 1] as const;
+
+const PRINCIPLES = [
+  {
+    num: '01',
+    title: 'Start with the decision, not the interface.',
+    desc: "The hardest part of product design isn't choosing a layout. It's identifying the decision that moves the product forward.",
+  },
+  {
+    num: '02',
+    title: 'Build systems, not pages.',
+    desc: 'Good products scale because the thinking behind them scales.',
+  },
+  {
+    num: '03',
+    title: 'Measure success by outcomes.',
+    desc: 'Every decision should improve something measurable, for users, the business, or the team building the product.',
+  },
+];
+
+const PRACTICES = [
+  {
+    num: '01.',
+    title: '0→1 Product Design',
+    project: 'Youtopia',
+    link: 'case-study.html?project=youtopia',
+    external: false,
+    desc: 'From first concept to a shippable, scalable system.',
+  },
+  {
+    num: '02.',
+    title: 'AI Product Design',
+    project: 'Youtopia',
+    link: 'case-study.html?project=youtopia',
+    external: false,
+    desc: 'Designing where automation leads and where humans stay in control.',
+  },
+  {
+    num: '03.',
+    title: 'VR / Emerging Interfaces',
+    project: 'REVLR',
+    link: 'case-study.html?project=revlr',
+    external: false,
+    desc: 'Building interaction models where no conventions exist yet.',
+  },
+  {
+    num: '04.',
+    title: 'Design Systems',
+    project: 'Justickets',
+    link: 'case-study.html?project=justickets',
+    external: false,
+    desc: 'Building components that hold up under real production constraints.',
+  },
+  {
+    num: '05.',
+    title: 'Accessibility Research',
+    project: 'REVLR',
+    link: 'case-study.html?project=revlr',
+    external: false,
+    desc: 'Designing and testing with accessibility as a starting constraint.',
+  },
+  {
+    num: '06.',
+    title: 'Civic Technology',
+    project: 'My Block Counts',
+    link: 'case-study.html?project=myblockcounts',
+    external: false,
+    desc: 'Turning dense public data into something a resident can actually use.',
+  },
+  {
+    num: '07.',
+    title: 'Course Design',
+    project: 'Outcome School',
+    link: 'https://www.outcomeschool.org/uiux-design',
+    external: true,
+    desc: 'Turning practiced design judgment into teachable curriculum.',
+  },
+];
+
 export default function App() {
+  const shouldReduceMotion = useReducedMotion();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileCaseStudiesOpen, setMobileCaseStudiesOpen] = useState(false);
@@ -145,7 +226,13 @@ export default function App() {
       />
 
       {/* Navigation Header */}
-      <header id="main-navigation-header" className="sticky top-0 z-50 w-full bg-[#3275b4]/85 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-5 transition-colors">
+      <motion.header
+        id="main-navigation-header"
+        initial={shouldReduceMotion ? false : { y: -16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: EASE_EDITORIAL }}
+        className="sticky top-0 z-50 w-full bg-[#3275b4]/85 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-5 transition-colors"
+      >
         <nav className="mx-auto max-w-[1300px] w-full flex items-center justify-between">
           {/* Logo */}
           <a
@@ -162,10 +249,23 @@ export default function App() {
             className="flex items-center text-white hover:text-[#FFD025] transition-colors shrink-0"
             aria-label="Home"
           >
-            <svg width="28" height="28" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-              <path d="M 6 50 L 46 8 L 70 8 C 84 8 92 17 92 29 C 92 41 84 50 72 50 L 6 50 Z" />
-              <line x1="42" y1="33" x2="66" y2="9" />
-              <path d="M 6 50 L 66 92 L 80 78 L 48 50" />
+            <svg
+              viewBox="0 0 1562 1627"
+              fill="none"
+              stroke="currentColor"
+              className="h-7 w-auto shrink-0"
+              aria-hidden="true"
+            >
+              <path
+                d="M750.96 943.507L1237.42 1327.32L1032.02 1559.19L77.7012 771.093L732.33 46.8096L1124.09 46.8086L713.221 519.729"
+                strokeWidth="134.7"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M732.33 46.8089L1124.09 46.8079C1125.05 46.5059 1180.99 43.4059 1189.94 43.7979C1282.57 47.8479 1445.55 86.7719 1495.31 299.955C1565.49 600.662 1309.7 741.189 1309.7 741.189C1309.7 741.189 1247.5 766.919 1187.72 770.91C1127.94 774.901 77.7012 771.092 77.7012 771.092"
+                strokeWidth="104.7"
+                strokeMiterlimit="10"
+              />
             </svg>
           </a>
 
@@ -348,7 +448,7 @@ export default function App() {
             </div>
           </div>
         )}
-      </header>
+      </motion.header>
 
       {/* Backdrop overlay for mobile menu - clicking/tapping outside closes menu */}
       {mobileMenuOpen && (
@@ -365,65 +465,84 @@ export default function App() {
         {/* HERO SECTION */}
         <section id="top" className="relative min-h-[calc(100vh-84px)] flex flex-col justify-between pt-10 sm:pt-14 md:pt-18 lg:pt-22 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden z-10">
           <div className="relative z-10 mx-auto max-w-[1300px] w-full px-5 sm:px-8 md:px-12 lg:px-16 flex-1 flex flex-col justify-between">
-            {/* Asymmetrical High-Impact Typographic Headline */}
+            {/* Asymmetrical High-Impact Typographic Headline with editorial staggered reveal */}
             <div>
               <h1 className="font-display text-[38px] sm:text-[52px] md:text-[66px] lg:text-[76px] xl:text-[84px] font-bold leading-[1.04] text-white tracking-[-0.035em] max-w-[1180px]">
-                Turning <span className="text-[#FFD025]">ambiguous problems</span>
-                <br className="hidden sm:inline" />
-                into <span className="text-[#FFD025]">products people</span> can
-                <br className="hidden sm:inline" />
-                actually <span className="text-[#FFD025]">use.</span>
+                <motion.span
+                  className="block"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.08, ease: EASE_EDITORIAL }}
+                >
+                  Turning <span className="text-[#FFD025]">ambiguous problems</span>
+                </motion.span>
+                <motion.span
+                  className="block"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: EASE_EDITORIAL }}
+                >
+                  into <span className="text-[#FFD025]">products people</span> can
+                </motion.span>
+                <motion.span
+                  className="block"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.32, ease: EASE_EDITORIAL }}
+                >
+                  actually <span className="text-[#FFD025]">use.</span>
+                </motion.span>
               </h1>
             </div>
 
             {/* Right-aligned editorial summary paragraph block matching reference layout */}
-            <div className="flex justify-end mt-12 sm:mt-16">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.46, ease: EASE_EDITORIAL }}
+              className="flex justify-end mt-12 sm:mt-16"
+            >
               <div className="max-w-[560px] text-left">
                 <p className="text-[15px] sm:text-[16px] md:text-[17px] leading-[1.62] text-white font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.4)]">
                   I design AI, enterprise, and consumer products from 0→1 to scale, partnering with research, engineering, and product teams to simplify complexity, shape product direction, and build systems that hold up in production.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* 1. DESIGN PRINCIPLES (Full-width strip) */}
         <section id="principles" className="relative z-10 border-t border-white/15 py-14 sm:py-18 md:py-22">
           <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16">
-            <h2 className="font-display text-[28px] sm:text-[38px] md:text-[48px] font-bold leading-[1.08] text-white mb-10 sm:mb-14 tracking-tight">
+            <motion.h2
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: EASE_EDITORIAL }}
+              className="font-display text-[28px] sm:text-[38px] md:text-[48px] font-bold leading-[1.08] text-white mb-10 sm:mb-14 tracking-tight"
+            >
               Design Principles
-            </h2>
+            </motion.h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-14">
-              <div className="flex flex-col justify-start">
-                <span className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">01</span>
-                <h3 className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-bold text-white leading-[1.2]">
-                  Start with the decision, not the interface.
-                </h3>
-                <p className="text-[14.5px] sm:text-[15.5px] leading-[1.68] text-white mt-3 font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.35)]">
-                  The hardest part of product design isn't choosing a layout. It's identifying the decision that moves the product forward.
-                </p>
-              </div>
-
-              <div className="flex flex-col justify-start">
-                <span className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">02</span>
-                <h3 className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-bold text-white leading-[1.2]">
-                  Build systems, not pages.
-                </h3>
-                <p className="text-[14.5px] sm:text-[15.5px] leading-[1.68] text-white mt-3 font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.35)]">
-                  Good products scale because the thinking behind them scales.
-                </p>
-              </div>
-
-              <div className="flex flex-col justify-start">
-                <span className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">03</span>
-                <h3 className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-bold text-white leading-[1.2]">
-                  Measure success by outcomes.
-                </h3>
-                <p className="text-[14.5px] sm:text-[15.5px] leading-[1.68] text-white mt-3 font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.35)]">
-                  Every decision should improve something measurable, for users, the business, or the team building the product.
-                </p>
-              </div>
+              {PRINCIPLES.map((principle, idx) => (
+                <motion.div
+                  key={principle.num}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.65, delay: idx * 0.12, ease: EASE_EDITORIAL }}
+                  className="flex flex-col justify-start"
+                >
+                  <span className="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">{principle.num}</span>
+                  <h3 className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-bold text-white leading-[1.2]">
+                    {principle.title}
+                  </h3>
+                  <p className="text-[14.5px] sm:text-[15.5px] leading-[1.68] text-white mt-3 font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.35)]">
+                    {principle.desc}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
@@ -435,145 +554,50 @@ export default function App() {
               
               {/* LEFT COLUMN: PRACTICES I BRING */}
               <div id="practices" className="lg:col-span-5 lg:sticky lg:top-[64px] sm:top-[70px] self-start text-white">
-                <div className="border-b border-white/20 pb-3 pt-2 mb-3 h-[52px] flex items-center">
+                <motion.div
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
+                  className="border-b border-white/20 pb-3 pt-2 mb-3 h-[52px] flex items-center"
+                >
                   <h2 className="font-display text-[22px] sm:text-[26px] lg:text-[24px] xl:text-[28px] font-bold leading-none text-white tracking-tight">
                     Practices I bring to a team
                   </h2>
-                </div>
+                </motion.div>
 
                 <ul className="divide-y divide-white/15 border-b border-white/15">
-                  {/* 01 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">01.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          0→1 Product Design
-                        </h3>
+                  {PRACTICES.map((practice, idx) => (
+                    <motion.li
+                      key={practice.num}
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-20px" }}
+                      transition={{ duration: 0.45, delay: idx * 0.05, ease: EASE_EDITORIAL }}
+                      className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors"
+                    >
+                      <div className="flex items-baseline justify-between gap-3">
+                        <div className="flex items-baseline gap-2.5">
+                          <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">{practice.num}</span>
+                          <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
+                            {practice.title}
+                          </h3>
+                        </div>
+                        <a
+                          href={practice.link}
+                          target={practice.external ? "_blank" : undefined}
+                          rel={practice.external ? "noopener noreferrer" : undefined}
+                          className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap group/link"
+                        >
+                          <span>{practice.project}</span>
+                          <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5] group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" aria-hidden="true" />
+                        </a>
                       </div>
-                      <a href="case-study.html?project=youtopia" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>Youtopia</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      From first concept to a shippable, scalable system.
-                    </p>
-                  </li>
-
-                  {/* 02 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">02.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          AI Product Design
-                        </h3>
-                      </div>
-                      <a href="case-study.html?project=youtopia" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>Youtopia</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Designing where automation leads and where humans stay in control.
-                    </p>
-                  </li>
-
-                  {/* 03 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">03.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          VR / Emerging Interfaces
-                        </h3>
-                      </div>
-                      <a href="case-study.html?project=revlr" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>REVLR</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Building interaction models where no conventions exist yet.
-                    </p>
-                  </li>
-
-                  {/* 04 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">04.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          Design Systems
-                        </h3>
-                      </div>
-                      <a href="case-study.html?project=justickets" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>Justickets</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Building components that hold up under real production constraints.
-                    </p>
-                  </li>
-
-                  {/* 05 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">05.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          Accessibility Research
-                        </h3>
-                      </div>
-                      <a href="case-study.html?project=revlr" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>REVLR</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Designing and testing with accessibility as a starting constraint.
-                    </p>
-                  </li>
-
-                  {/* 06 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">06.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          Civic Technology
-                        </h3>
-                      </div>
-                      <a href="case-study.html?project=myblockcounts" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>My Block Counts</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Turning dense public data into something a resident can actually use.
-                    </p>
-                  </li>
-
-                  {/* 07 */}
-                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2.5">
-                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">07.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
-                          Course Design
-                        </h3>
-                      </div>
-                      <a href="https://www.outcomeschool.org/uiux-design" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
-                        <span>Outcome School</span>
-                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
-                      </a>
-                    </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
-                      Turning practiced design judgment into teachable curriculum.
-                    </p>
-                  </li>
+                      <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
+                        {practice.desc}
+                      </p>
+                    </motion.li>
+                  ))}
                 </ul>
               </div>
 
@@ -581,14 +605,25 @@ export default function App() {
               <div className="lg:col-span-7">
                 {/* PROJECT 1: YOUTOPIA (WITH SELECTED WORK HEADING) */}
                 <div className="sticky top-[64px] sm:top-[70px] z-10 mb-8 sm:mb-12">
-                  <div className="border-b border-white/20 pb-3 pt-2 mb-3 h-[52px] flex items-center">
+                  <motion.div
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
+                    className="border-b border-white/20 pb-3 pt-2 mb-3 h-[52px] flex items-center"
+                  >
                     <h2 className="font-display text-[22px] sm:text-[26px] lg:text-[24px] xl:text-[28px] font-bold leading-none text-white tracking-tight">
                       Selected Work
                     </h2>
-                  </div>
+                  </motion.div>
 
-                  <a
+                  <motion.a
                     href="case-study.html?project=youtopia"
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+                    whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                     className="group border border-white/60 rounded-2xl bg-white/95 backdrop-blur-md shadow-[0_-6px_24px_rgba(0,15,45,0.18),0_20px_50px_rgba(0,25,80,0.28)] hover:shadow-[0_-8px_32px_rgba(0,15,45,0.25),0_28px_60px_rgba(0,25,80,0.38)] hover:border-white transition-all duration-300 block overflow-hidden text-neutral-900"
                   >
                       <div className="bg-neutral-100 overflow-hidden h-[180px] sm:h-[210px] md:h-[230px] border-b border-neutral-200">
@@ -633,13 +668,18 @@ export default function App() {
                           <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-neutral-300 bg-neutral-100 text-neutral-800 font-medium shadow-2xs">Systems Thinking</span>
                         </div>
                       </div>
-                    </a>
+                    </motion.a>
                   </div>
 
                   {/* PROJECT 2: REVLR */}
                   <div className="sticky top-[132px] sm:top-[138px] z-20 mb-8 sm:mb-12">
-                    <a
+                    <motion.a
                       href="case-study.html?project=revlr"
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+                      whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                       className="group border border-white/60 rounded-2xl bg-white/95 backdrop-blur-md shadow-[0_-6px_24px_rgba(0,15,45,0.18),0_20px_50px_rgba(0,25,80,0.28)] hover:shadow-[0_-8px_32px_rgba(0,15,45,0.25),0_28px_60px_rgba(0,25,80,0.38)] hover:border-white transition-all duration-300 block overflow-hidden text-neutral-900"
                     >
                       <div className="bg-neutral-100 overflow-hidden h-[180px] sm:h-[210px] md:h-[230px] border-b border-neutral-200">
@@ -682,13 +722,18 @@ export default function App() {
                           <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-neutral-300 bg-neutral-100 text-neutral-800 font-medium shadow-2xs">Emerging Interfaces</span>
                         </div>
                       </div>
-                    </a>
+                    </motion.a>
                   </div>
 
                   {/* PROJECT 3: JUSTICKETS */}
                   <div className="sticky top-[136px] sm:top-[142px] z-30 mb-8 sm:mb-12">
-                    <a
+                    <motion.a
                       href="case-study.html?project=justickets"
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+                      whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                       className="group border border-white/60 rounded-2xl bg-white/95 backdrop-blur-md shadow-[0_-6px_24px_rgba(0,15,45,0.18),0_20px_50px_rgba(0,25,80,0.28)] hover:shadow-[0_-8px_32px_rgba(0,15,45,0.25),0_28px_60px_rgba(0,25,80,0.38)] hover:border-white transition-all duration-300 block overflow-hidden text-neutral-900"
                     >
                       <div className="bg-neutral-100 overflow-hidden h-[180px] sm:h-[210px] md:h-[230px] border-b border-neutral-200">
@@ -731,13 +776,18 @@ export default function App() {
                           <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-neutral-300 bg-neutral-100 text-neutral-800 font-medium shadow-2xs">Production Collaboration</span>
                         </div>
                       </div>
-                    </a>
+                    </motion.a>
                   </div>
 
                   {/* PROJECT 4: MY BLOCK COUNTS */}
                   <div className="sticky top-[140px] sm:top-[146px] z-40 mb-0">
-                    <a
+                    <motion.a
                       href="case-study.html?project=myblockcounts"
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+                      whileHover={shouldReduceMotion ? undefined : { y: -4 }}
                       className="group border border-white/60 rounded-2xl bg-white/95 backdrop-blur-md shadow-[0_-6px_24px_rgba(0,15,45,0.18),0_20px_50px_rgba(0,25,80,0.28)] hover:shadow-[0_-8px_32px_rgba(0,15,45,0.25),0_28px_60px_rgba(0,25,80,0.38)] hover:border-white transition-all duration-300 block overflow-hidden text-neutral-900"
                     >
                       <div className="bg-neutral-100 overflow-hidden h-[180px] sm:h-[210px] md:h-[230px] border-b border-neutral-200">
@@ -781,7 +831,7 @@ export default function App() {
                           <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-neutral-300 bg-neutral-100 text-neutral-800 font-medium shadow-2xs">Civic Technology</span>
                         </div>
                       </div>
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </div>
@@ -791,7 +841,13 @@ export default function App() {
         {/* 3. HELPING DESIGNERS GROW */}
         <section id="mentorship" className="relative z-10 border-t border-white/15 py-14 sm:py-18 md:py-22">
           <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16">
-            <div className="w-full">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+              className="w-full"
+            >
               <span className="text-[11px] sm:text-[12px] font-mono uppercase tracking-[0.2em] text-[#FFD025] block mb-2 font-bold">Mentorship & Teaching</span>
               <h2 className="font-display text-[28px] sm:text-[36px] md:text-[44px] font-bold leading-[1.08] text-white tracking-tight mb-6">
                 Helping other designers grow
@@ -807,7 +863,7 @@ export default function App() {
                   Teaching and mentoring have made me a clearer communicator, a stronger collaborator, and a more thoughtful product designer.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -815,7 +871,13 @@ export default function App() {
         <section id="about" className="relative z-10 border-t border-white/15 pt-16 sm:pt-24 md:pt-36 pb-0 bg-white/5 backdrop-blur-xs overflow-x-clip">
           <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 w-full pb-4 sm:pb-20 md:pb-28 lg:pb-36">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 items-center w-full">
-              <div className="hidden md:flex md:col-span-5 justify-center">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, ease: EASE_EDITORIAL }}
+                className="hidden md:flex md:col-span-5 justify-center"
+              >
                 <div className="relative rounded-2xl overflow-hidden max-w-[380px] w-full border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl">
                   <div className="aspect-[4/5] w-full overflow-hidden">
                     <img
@@ -827,9 +889,15 @@ export default function App() {
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="w-full md:col-span-7">
+              <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.65, delay: 0.1, ease: EASE_EDITORIAL }}
+                className="w-full md:col-span-7"
+              >
                 <h2 className="font-display text-[32px] sm:text-[46px] md:text-[58px] font-bold leading-[1.05] text-white mb-6 tracking-tight">
                   Hi, I'm Kay
                 </h2>
@@ -881,7 +949,7 @@ export default function App() {
                     <ArrowUpRight size={15} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                   </a>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -892,7 +960,13 @@ export default function App() {
         {/* CONTACT SECTION */}
         <section id="contact" className="relative z-20 bg-[#3275b4] border-t border-white/15 pt-16 sm:pt-24 md:pt-32">
           <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 pb-16 sm:pb-24">
-            <div className="max-w-[720px]">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.65, ease: EASE_EDITORIAL }}
+              className="max-w-[720px]"
+            >
               <h2 className="font-display text-[28px] sm:text-[44px] md:text-[58px] lg:text-[68px] font-bold leading-[1.05] text-white tracking-tight">
                 Building something complex?<br />I'd love to help make it simpler.
               </h2>
@@ -909,7 +983,7 @@ export default function App() {
                   <ArrowUpRight size={22} className="shrink-0 inline-block align-middle select-none stroke-[2.5]" aria-hidden="true" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* SOCIAL LINKS GRID STRIP (FOOTER SECTION) */}

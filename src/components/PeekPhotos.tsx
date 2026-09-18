@@ -136,7 +136,6 @@ export function PeekPhotos() {
       {/* Mobile tap helper badge */}
       <div className="flex justify-center items-center gap-1.5 mb-2 sm:hidden text-white/85 font-mono text-[11px] tracking-wider uppercase pointer-events-none">
         <span>Tap photo to view</span>
-        <ArrowUpRight size={13} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
       </div>
 
       <div className="flex justify-center items-end -space-x-2 min-[360px]:-space-x-2.5 min-[420px]:-space-x-3.5 sm:-space-x-5 md:-space-x-6 lg:-space-x-8 xl:-space-x-10 pointer-events-none">

@@ -33,6 +33,30 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Vintage Custom Cursor */
+@media (hover: hover) and (pointer: fine) {
+  html, body, #root, * {
+    cursor: url('/vintage-cursor.svg') 0 0, auto;
+  }
+
+  a, a *,
+  button, button *,
+  [role="button"], [role="button"] *,
+  input[type="submit"], input[type="button"], input[type="reset"],
+  select, label, summary,
+  .cursor-pointer, .cursor-pointer * {
+    cursor: url('/vintage-pointer.svg') 6 0, pointer !important;
+  }
+
+  input[type="text"], input[type="password"], input[type="email"], input[type="search"], textarea, [contenteditable="true"] {
+    cursor: text !important;
+  }
+
+  [disabled], .disabled, [aria-disabled="true"], [disabled] * {
+    cursor: not-allowed !important;
+  }
+}
+
 /* Light Editorial Tag */
 .work-card-tag {
   background-color: #F4F4F5;
