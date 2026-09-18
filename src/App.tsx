@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Lock, ExternalLink } from 'lucide-react';
+import { Menu, X, ChevronDown, Lock, ExternalLink, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { PeekPhotos } from './components/PeekPhotos';
 
 export default function App() {
@@ -31,6 +31,25 @@ export default function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Close mobile hamburger menu when clicking/tapping outside
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+      const header = document.getElementById('main-navigation-header');
+      if (header && !header.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchend', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchend', handleOutsideClick);
+    };
+  }, [mobileMenuOpen]);
 
   // Handle URL hash navigation (e.g. returning from case studies page)
   useEffect(() => {
@@ -126,7 +145,7 @@ export default function App() {
       />
 
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 w-full bg-[#3275b4]/85 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-5 transition-colors">
+      <header id="main-navigation-header" className="sticky top-0 z-50 w-full bg-[#3275b4]/85 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4 sm:py-5 transition-colors">
         <nav className="mx-auto max-w-[1300px] w-full flex items-center justify-between">
           {/* Logo */}
           <a
@@ -220,7 +239,8 @@ export default function App() {
                     rel="noopener noreferrer"
                     className="cs-dropdown-item"
                   >
-                    <span>Beyond Product ↗</span>
+                    <span>Beyond Product</span>
+                    <ArrowUpRight size={13} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                   </a>
                 </div>
               )}
@@ -263,7 +283,7 @@ export default function App() {
               className="flex items-center justify-between px-3 py-2.5 rounded-lg text-[15px] text-white hover:bg-white/10 transition-colors font-medium"
             >
               <span>Resume</span>
-              <ExternalLink size={15} className="text-white/70" />
+              <ArrowUpRight size={15} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
             </a>
             <a
               href="#contact"
@@ -321,7 +341,7 @@ export default function App() {
                     className="flex items-center justify-between px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10"
                   >
                     <span>Beyond Product</span>
-                    <ExternalLink size={12} className="text-white/60" />
+                    <ArrowUpRight size={14} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                   </a>
                 </div>
               )}
@@ -330,8 +350,18 @@ export default function App() {
         )}
       </header>
 
+      {/* Backdrop overlay for mobile menu - clicking/tapping outside closes menu */}
+      {mobileMenuOpen && (
+        <div
+          id="mobile-menu-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 top-0 bg-black/45 z-40 md:hidden backdrop-blur-[2px] animate-in fade-in duration-150 cursor-pointer"
+          aria-hidden="true"
+        />
+      )}
+
       {/* MAIN CONTENT CANVAS */}
-      <main className="w-full relative z-10">
+      <main className="w-full relative z-10 overflow-x-clip">
         {/* HERO SECTION */}
         <section id="top" className="relative min-h-[calc(100vh-84px)] flex flex-col justify-between pt-10 sm:pt-14 md:pt-18 lg:pt-22 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden z-10">
           <div className="relative z-10 mx-auto max-w-[1300px] w-full px-5 sm:px-8 md:px-12 lg:px-16 flex-1 flex flex-col justify-between">
@@ -423,7 +453,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=youtopia" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>Youtopia</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -442,7 +472,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=youtopia" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>Youtopia</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -461,7 +491,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=revlr" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>REVLR</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -480,7 +510,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=justickets" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>Justickets</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -499,7 +529,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=revlr" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>REVLR</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -518,7 +548,7 @@ export default function App() {
                       </div>
                       <a href="case-study.html?project=myblockcounts" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>My Block Counts</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -537,7 +567,7 @@ export default function App() {
                       </div>
                       <a href="https://www.outcomeschool.org/uiux-design" target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
                         <span>Outcome School</span>
-                        <span className="text-[#FFD025] font-bold">↗</span>
+                        <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
                     <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
@@ -577,7 +607,7 @@ export default function App() {
                         <div className="flex items-center justify-end mb-1.5">
                           <div className="text-[11px] uppercase tracking-[0.16em] text-black font-semibold inline-flex items-center gap-1.5 font-mono group-hover:translate-x-0.5 transition-transform">
                             <span>View Case Study</span>
-                            <span>→</span>
+                            <ArrowRight size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                           </div>
                         </div>
                         <h3 className="font-display text-xl sm:text-2xl font-bold text-black mb-1.5">Youtopia</h3>
@@ -627,7 +657,7 @@ export default function App() {
                         <div className="flex items-center justify-end mb-1.5">
                           <div className="text-[11px] uppercase tracking-[0.16em] text-black font-semibold inline-flex items-center gap-1.5 font-mono group-hover:translate-x-0.5 transition-transform">
                             <span>View Case Study</span>
-                            <span>→</span>
+                            <ArrowRight size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                           </div>
                         </div>
                         <h3 className="font-display text-xl sm:text-2xl font-bold text-black mb-1.5">REVLR</h3>
@@ -676,7 +706,7 @@ export default function App() {
                         <div className="flex items-center justify-end mb-1.5">
                           <div className="text-[11px] uppercase tracking-[0.16em] text-black font-semibold inline-flex items-center gap-1.5 font-mono group-hover:translate-x-0.5 transition-transform">
                             <span>View Case Study</span>
-                            <span>→</span>
+                            <ArrowRight size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                           </div>
                         </div>
                         <h3 className="font-display text-xl sm:text-2xl font-bold text-black mb-1.5">Justickets</h3>
@@ -725,7 +755,7 @@ export default function App() {
                         <div className="flex items-center justify-end mb-1.5">
                           <div className="text-[11px] uppercase tracking-[0.16em] text-black font-semibold inline-flex items-center gap-1.5 font-mono group-hover:translate-x-0.5 transition-transform">
                             <span>View Case Study</span>
-                            <span>→</span>
+                            <ArrowRight size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                           </div>
                         </div>
                         <h3 className="font-display text-xl sm:text-2xl font-bold text-black mb-1.5">My Block Counts</h3>
@@ -781,10 +811,10 @@ export default function App() {
         </section>
 
         {/* ABOUT SECTION */}
-        <section id="about" className="relative z-10 border-t border-white/15 pt-16 sm:pt-24 md:pt-36 pb-0 bg-white/5 backdrop-blur-xs">
-          <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16">
-            <div className="grid grid-cols-12 gap-8 md:gap-14 items-center">
-              <div className="hidden md:flex col-span-12 md:col-span-5 justify-center">
+        <section id="about" className="relative z-10 border-t border-white/15 pt-16 sm:pt-24 md:pt-36 pb-0 bg-white/5 backdrop-blur-xs overflow-x-clip">
+          <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 items-center w-full">
+              <div className="hidden md:flex md:col-span-5 justify-center">
                 <div className="relative rounded-2xl overflow-hidden max-w-[380px] w-full border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl">
                   <div className="aspect-[4/5] w-full overflow-hidden">
                     <img
@@ -798,23 +828,36 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="col-span-12 md:col-span-7">
+              <div className="w-full md:col-span-7">
                 <h2 className="font-display text-[32px] sm:text-[46px] md:text-[58px] font-bold leading-[1.05] text-white mb-6 tracking-tight">
                   Hi, I'm Kay
                 </h2>
 
-                {/* Mobile-only portrait */}
-                <div className="my-6 md:hidden rounded-xl overflow-hidden max-w-[300px] mx-auto border border-white/30 bg-white/10 shadow-md">
-                  <img
-                    src="/Home/about.png"
-                    alt="Kay portrait illustration"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                {/* Mobile-only portrait - centered */}
+                <div className="my-8 md:hidden w-full flex justify-center items-center">
+                  <div
+                    onClick={() => {
+                      const peek = document.getElementById('peek-photos-container');
+                      if (peek) {
+                        peek.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }}
+                    className="relative rounded-2xl overflow-hidden w-[250px] xs:w-[280px] sm:w-[320px] max-w-[80vw] border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl aspect-[4/5] mx-auto cursor-pointer active:scale-95 transition-transform"
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Kay portrait illustration"
+                  >
+                    <img
+                      src="/Home/about.png"
+                      alt="Kay portrait illustration"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-4 sm:space-y-6 text-[15px] sm:text-[16px] md:text-[17px] leading-[1.72] text-white font-normal">
+                <div className="space-y-4 sm:space-y-6 text-[15px] sm:text-[16px] md:text-[17px] leading-[1.72] text-white font-normal break-words">
                   <p>
                     I didn't start in product design. I started in illustration, drawing characters and building visual worlds long before I touched Figma. That instinct never really left, it's why I still care as much about how something feels as how it functions.
                   </p>
@@ -834,7 +877,7 @@ export default function App() {
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFD025] hover:bg-white text-black text-[12px] font-mono tracking-[0.16em] uppercase transition-all shadow-lg font-bold"
                   >
                     <span>View Resume</span>
-                    <span>↗</span>
+                    <ArrowUpRight size={15} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
                   </a>
                 </div>
               </div>
@@ -859,10 +902,10 @@ export default function App() {
               <div className="mt-6 sm:mt-8 max-w-full">
                 <a
                   href="mailto:itskeerthanaravichandran@gmail.com"
-                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[13.5px] min-[360px]:text-[15px] min-[420px]:text-[17px] sm:text-xl md:text-2xl font-mono text-[#FFD025] hover:text-white underline underline-offset-4 sm:underline-offset-8 transition-colors font-bold tracking-tight max-w-full break-all py-1"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[13.5px] min-[360px]:text-[15px] min-[420px]:text-[17px] sm:text-xl md:text-2xl font-mono text-[#FFD025] hover:text-white underline underline-offset-4 sm:underline-offset-8 transition-colors font-bold tracking-tight max-w-full break-all py-1 group"
                 >
                   <span className="break-all">itskeerthanaravichandran@gmail.com</span>
-                  <span className="shrink-0 text-base sm:text-xl select-none" aria-hidden="true">↗</span>
+                  <ArrowUpRight size={22} className="shrink-0 inline-block align-middle select-none stroke-[2.5]" aria-hidden="true" />
                 </a>
               </div>
             </div>

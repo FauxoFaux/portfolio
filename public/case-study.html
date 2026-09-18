@@ -80,30 +80,46 @@
             white-space: nowrap;
             gap: 8px;
             padding: 10px 16px;
-            font-size: 12px;
+            font-size: 12.5px;
             letter-spacing: 0.05em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.9);
+            color: #FFFFFF;
+            font-weight: 600;
             text-decoration: none;
             transition: all 0.15s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
         .cs-dropdown-item:last-child {
             border-bottom: none;
         }
         .cs-dropdown-item:hover, .cs-dropdown-item:focus, .cs-dropdown-item.active {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.2);
             color: #FFD025;
         }
 
+        /* Metadata Shipped link and text styling */
+        #cs-meta-shipped {
+            color: #FFFFFF !important;
+        }
+        #cs-meta-shipped a {
+            color: #FFFFFF !important;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.15s ease;
+        }
+        #cs-meta-shipped a:hover {
+            color: #FFD025 !important;
+        }
+
         .image-placeholder-card {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 16px;
             padding: 48px 24px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 13.5px;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
             font-family: 'Inter', sans-serif;
             margin-top: 24px;
             margin-bottom: 24px;
@@ -171,12 +187,13 @@
         svg text.fill-\[\#475569\],
         svg text.dark\:fill-\[\#94A3B8\],
         svg text.dark\:fill-\[\#CBD5E1\] {
-            fill: rgba(255, 255, 255, 0.82) !important;
+            fill: #FFFFFF !important;
         }
         svg text.fill-\[\#2036B8\],
         svg text.dark\:fill-\[\#5A6BFF\],
         svg text.dark\:fill-\[\#8B95FF\] {
             fill: #FFD025 !important;
+            font-weight: 700 !important;
         }
 
         /* SVG lines and borders */
@@ -228,7 +245,7 @@
         div:has(> img[src*="MBC"]),
         div:has(> img[src*="REVLR"]),
         div:has(> img[src*="JT"]) {
-            color: rgba(255, 255, 255, 0.9) !important;
+            color: #FFFFFF !important;
         }
 
         /* In-diagram white containers converted to sleek frosted glass */
@@ -238,10 +255,10 @@
             color: #FFFFFF !important;
         }
 
-        .text-fg { color: rgba(255, 255, 255, 0.9) !important; }
+        .text-fg { color: #FFFFFF !important; }
         .text-heading { color: #FFFFFF !important; }
         .text-accent { color: #FFD025 !important; }
-        .text-muted, .text-muted-fg { color: rgba(255, 255, 255, 0.75) !important; }
+        .text-muted, .text-muted-fg { color: #FFFFFF !important; }
 
         /* SVG Table Header on Yellow Banner */
         svg path.fill-\[\#2036B8\] + text,
@@ -262,7 +279,7 @@
         .diag-center-sub { fill: #111111 !important; font-size: 12px !important; font-weight: 700 !important; }
         .diag-card-bg { fill: rgba(255, 255, 255, 0.12) !important; stroke: rgba(255, 255, 255, 0.25) !important; stroke-width: 1.5 !important; }
         .diag-card-title { fill: #FFD025 !important; font-weight: 700 !important; font-size: 14px !important; }
-        .diag-card-sub { fill: rgba(255, 255, 255, 0.85) !important; font-size: 13px !important; font-weight: 500 !important; }
+        .diag-card-sub { fill: #FFFFFF !important; font-size: 13px !important; font-weight: 500 !important; }
     </style>
 </head>
 <body class="selection:bg-[#FFD025] selection:text-black min-h-screen w-full bg-[#3275b4] text-white relative overflow-x-clip">
@@ -276,8 +293,8 @@
     ></div>
 
     <!-- Sticky Navigation Header matching App.tsx -->
-    <header class="sticky top-0 z-50 w-full bg-[#3275b4]/90 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4">
-        <nav class="mx-auto max-w-[1300px] w-full flex items-center justify-between gap-2 sm:gap-4 md:gap-8">
+    <header id="cs-header-nav" class="sticky top-0 z-50 w-full bg-[#3275b4]/90 backdrop-blur-md border-b border-white/20 px-5 sm:px-8 md:px-12 lg:px-16 py-4">
+        <nav class="mx-auto max-w-[1300px] w-full flex items-center justify-between">
             <!-- Logo -->
             <a href="/#top" class="flex items-center text-white hover:text-[#FFD025] transition-colors shrink-0" aria-label="Keerthana R. Home">
                 <svg width="28" height="28" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
@@ -287,58 +304,241 @@
                 </svg>
             </a>
 
-            <!-- Navigation Links -->
-            <a href="/#work" class="text-[13px] sm:text-[14px] md:text-[15px] font-normal text-white/90 hover:text-[#FFD025] transition-colors whitespace-nowrap">
+            <!-- Desktop Navigation Links (md and up) -->
+            <div class="hidden md:flex items-center gap-8 lg:gap-11">
+                <a href="/#work" class="text-[14px] md:text-[15px] font-medium text-white hover:text-[#FFD025] transition-colors whitespace-nowrap">
+                    Work
+                </a>
+                <a href="/#about" class="text-[14px] md:text-[15px] font-medium text-white hover:text-[#FFD025] transition-colors whitespace-nowrap">
+                    About
+                </a>
+                <a href="https://drive.google.com/file/d/13F5AWdAowd_L5jzegAMzhspee3-vKIRM/view" target="_blank" rel="noopener noreferrer" class="text-[14px] md:text-[15px] font-medium text-white hover:text-[#FFD025] transition-colors whitespace-nowrap">
+                    Resume
+                </a>
+                <a href="/#contact" class="text-[14px] md:text-[15px] font-medium text-white hover:text-[#FFD025] transition-colors whitespace-nowrap">
+                    Contact
+                </a>
+
+                <!-- Case Studies Dropdown -->
+                <div id="case-studies-nav" class="relative shrink-0">
+                    <button
+                        onclick="toggleCsDropdown(event)"
+                        class="text-[14px] md:text-[15px] font-medium text-white hover:text-[#FFD025] flex items-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
+                        aria-label="Case Studies Menu"
+                    >
+                        <span>Case studies</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform duration-200">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div id="cs-dropdown" class="cs-dropdown">
+                        <a href="case-study.html?project=youtopia" onclick="selectProject('youtopia', event)" class="cs-dropdown-item" data-proj="youtopia">
+                            <span>01 — Youtopia</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/80 shrink-0 ml-2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </a>
+                        <a href="case-study.html?project=revlr" onclick="selectProject('revlr', event)" class="cs-dropdown-item" data-proj="revlr">
+                            <span>02 — REVLR</span>
+                        </a>
+                        <a href="case-study.html?project=justickets" onclick="selectProject('justickets', event)" class="cs-dropdown-item" data-proj="justickets">
+                            <span>03 — Justickets</span>
+                        </a>
+                        <a href="case-study.html?project=myblockcounts" onclick="selectProject('myblockcounts', event)" class="cs-dropdown-item" data-proj="myblockcounts">
+                            <span>04 — My Block Counts</span>
+                        </a>
+                        <a href="https://kaystudio.framer.website/" target="_blank" rel="noopener noreferrer" class="cs-dropdown-item">
+                            <span>Beyond Product</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button
+                id="cs-mobile-menu-btn"
+                onclick="toggleMobileMenu(event)"
+                class="md:hidden p-2 text-white hover:text-[#FFD025] transition-colors rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 cursor-pointer flex items-center justify-center"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+                <svg id="cs-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+                <svg id="cs-close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="cs-mobile-drawer" class="hidden md:hidden mt-3 pt-3 border-t border-white/20 pb-2 space-y-1">
+            <a href="/#work" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg text-[15px] text-white hover:bg-white/10 font-medium transition-colors">
                 Work
             </a>
-            <a href="/#about" class="text-[13px] sm:text-[14px] md:text-[15px] font-normal text-white/90 hover:text-[#FFD025] transition-colors whitespace-nowrap">
+            <a href="/#about" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg text-[15px] text-white hover:bg-white/10 font-medium transition-colors">
                 About
             </a>
-            <a href="https://drive.google.com/file/d/13F5AWdAowd_L5jzegAMzhspee3-vKIRM/view" target="_blank" rel="noopener noreferrer" class="text-[13px] sm:text-[14px] md:text-[15px] font-normal text-white/90 hover:text-[#FFD025] transition-colors whitespace-nowrap">
-                Resume
+            <a href="https://drive.google.com/file/d/13F5AWdAowd_L5jzegAMzhspee3-vKIRM/view" target="_blank" rel="noopener noreferrer" onclick="closeMobileMenu()" class="flex items-center justify-between px-3 py-2.5 rounded-lg text-[15px] text-white hover:bg-white/10 font-medium transition-colors">
+                <span>Resume</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
             </a>
-            <a href="/#contact" class="text-[13px] sm:text-[14px] md:text-[15px] font-normal text-white/90 hover:text-[#FFD025] transition-colors whitespace-nowrap">
+            <a href="/#contact" onclick="closeMobileMenu()" class="block px-3 py-2.5 rounded-lg text-[15px] text-white hover:bg-white/10 font-medium transition-colors">
                 Contact
             </a>
 
-            <!-- Case Studies Dropdown -->
-            <div id="case-studies-nav" class="relative shrink-0">
+            <!-- Mobile Case Studies Accordion -->
+            <div class="pt-2 border-t border-white/15 mt-2">
                 <button
-                    onclick="toggleCsDropdown(event)"
-                    class="text-[13px] sm:text-[14px] md:text-[15px] text-white/90 hover:text-[#FFD025] flex items-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
-                    aria-label="Case Studies Menu"
+                    type="button"
+                    id="cs-mobile-accordion-btn"
+                    onclick="toggleMobileCaseStudies(event)"
+                    class="w-full flex items-center justify-between px-3 py-2.5 text-[15px] text-white hover:text-[#FFD025] font-medium rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    aria-expanded="false"
                 >
                     <span>Case studies</span>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform duration-200">
+                    <svg id="cs-mobile-accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform duration-200">
                         <path d="M6 9l6 6 6-6" />
                     </svg>
                 </button>
-                <div id="cs-dropdown" class="cs-dropdown">
-                    <a href="case-study.html?project=youtopia" onclick="selectProject('youtopia', event)" class="cs-dropdown-item" data-proj="youtopia">
+                <div id="cs-mobile-accordion-content" class="hidden pl-3 pr-1 py-1 space-y-1">
+                    <a href="case-study.html?project=youtopia" onclick="selectProject('youtopia', event); closeMobileMenu();" class="flex items-center justify-between px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10" data-mobile-proj="youtopia">
                         <span>01 — Youtopia</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/60 shrink-0 ml-2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025]">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
                     </a>
-                    <a href="case-study.html?project=revlr" onclick="selectProject('revlr', event)" class="cs-dropdown-item" data-proj="revlr">
-                        <span>02 — REVLR</span>
+                    <a href="case-study.html?project=revlr" onclick="selectProject('revlr', event); closeMobileMenu();" class="block px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10" data-mobile-proj="revlr">
+                        02 — REVLR
                     </a>
-                    <a href="case-study.html?project=justickets" onclick="selectProject('justickets', event)" class="cs-dropdown-item" data-proj="justickets">
-                        <span>03 — Justickets</span>
+                    <a href="case-study.html?project=justickets" onclick="selectProject('justickets', event); closeMobileMenu();" class="block px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10" data-mobile-proj="justickets">
+                        03 — Justickets
                     </a>
-                    <a href="case-study.html?project=myblockcounts" onclick="selectProject('myblockcounts', event)" class="cs-dropdown-item" data-proj="myblockcounts">
-                        <span>04 — My Block Counts</span>
+                    <a href="case-study.html?project=myblockcounts" onclick="selectProject('myblockcounts', event); closeMobileMenu();" class="block px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10" data-mobile-proj="myblockcounts">
+                        04 — My Block Counts
                     </a>
-                    <a href="https://kaystudio.framer.website/" target="_blank" rel="noopener noreferrer" class="cs-dropdown-item">
-                        <span>Beyond Product ↗</span>
+                    <a href="https://kaystudio.framer.website/" target="_blank" rel="noopener noreferrer" onclick="closeMobileMenu()" class="flex items-center justify-between px-3 py-2 rounded-lg text-[14px] text-white/90 hover:text-white hover:bg-white/10">
+                        <span>Beyond Product</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
                     </a>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
 
+    <!-- Backdrop overlay for mobile menu -->
+    <div
+        id="cs-mobile-backdrop"
+        onclick="closeMobileMenu()"
+        class="fixed inset-0 top-0 bg-black/50 z-40 md:hidden backdrop-blur-[2px] hidden transition-opacity duration-150 cursor-pointer"
+        aria-hidden="true"
+    ></div>
+
     <script>
+        function toggleMobileMenu(e) {
+            if (e) e.stopPropagation();
+            const drawer = document.getElementById('cs-mobile-drawer');
+            const menuIcon = document.getElementById('cs-menu-icon');
+            const closeIcon = document.getElementById('cs-close-icon');
+            const backdrop = document.getElementById('cs-mobile-backdrop');
+            const btn = document.getElementById('cs-mobile-menu-btn');
+            if (drawer) {
+                const isOpen = !drawer.classList.contains('hidden');
+                if (isOpen) {
+                    closeMobileMenu();
+                } else {
+                    drawer.classList.remove('hidden');
+                    if (menuIcon) menuIcon.classList.add('hidden');
+                    if (closeIcon) closeIcon.classList.remove('hidden');
+                    if (backdrop) backdrop.classList.remove('hidden');
+                    if (btn) {
+                        btn.setAttribute('aria-expanded', 'true');
+                        btn.setAttribute('aria-label', 'Close navigation menu');
+                    }
+                }
+            }
+        }
+
+        function closeMobileMenu() {
+            const drawer = document.getElementById('cs-mobile-drawer');
+            const menuIcon = document.getElementById('cs-menu-icon');
+            const closeIcon = document.getElementById('cs-close-icon');
+            const backdrop = document.getElementById('cs-mobile-backdrop');
+            const btn = document.getElementById('cs-mobile-menu-btn');
+            if (drawer) {
+                drawer.classList.add('hidden');
+                if (menuIcon) menuIcon.classList.remove('hidden');
+                if (closeIcon) closeIcon.classList.add('hidden');
+                if (backdrop) backdrop.classList.add('hidden');
+                if (btn) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.setAttribute('aria-label', 'Open navigation menu');
+                }
+            }
+        }
+
+        function toggleMobileCaseStudies(e) {
+            if (e) e.stopPropagation();
+            const content = document.getElementById('cs-mobile-accordion-content');
+            const chevron = document.getElementById('cs-mobile-accordion-chevron');
+            const btn = document.getElementById('cs-mobile-accordion-btn');
+            if (content) {
+                const isExpanded = !content.classList.contains('hidden');
+                if (isExpanded) {
+                    content.classList.add('hidden');
+                    if (chevron) chevron.classList.remove('rotate-180');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    content.classList.remove('hidden');
+                    if (chevron) chevron.classList.add('rotate-180');
+                    if (btn) btn.setAttribute('aria-expanded', 'true');
+                }
+            }
+        }
+
+        // Close mobile drawer and dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const header = document.getElementById('cs-header-nav');
+            if (header && !header.contains(e.target)) {
+                closeMobileMenu();
+            }
+            const nav = document.getElementById('case-studies-nav');
+            const dropdown = document.getElementById('cs-dropdown');
+            if (nav && dropdown && !nav.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+
+        // Close when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+                const dropdown = document.getElementById('cs-dropdown');
+                if (dropdown) dropdown.classList.remove('open');
+            }
+        });
+
+        // Automatically close mobile menu if screen resizes to desktop width
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                closeMobileMenu();
+            }
+        });
+
         function toggleCsDropdown(e) {
             if (e) e.stopPropagation();
             const dropdown = document.getElementById('cs-dropdown');
@@ -357,15 +557,6 @@
         window.addEventListener('popstate', () => {
             renderCaseStudy();
         });
-
-        // Close dropdown on click outside
-        document.addEventListener('click', (e) => {
-            const nav = document.getElementById('case-studies-nav');
-            const dropdown = document.getElementById('cs-dropdown');
-            if (nav && dropdown && !nav.contains(e.target)) {
-                dropdown.classList.remove('open');
-            }
-        });
     </script>
 
     <!-- Main Case Study Content Shell -->
@@ -373,41 +564,38 @@
 
         <!-- Case Study Header -->
         <header class="pb-6 sm:pb-8">
-            <p id="cs-eyebrow" class="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.2em] text-[#FFD025] mb-4 sm:mb-6 font-semibold">
-                CASE STUDY 01 · AI NUTRITION PLATFORM · NOV 2025 – MAR 2026 · PRODUCT & BRAND DESIGNER
-            </p>
             <h1 id="cs-title" class="font-display text-[44px] sm:text-[68px] md:text-[84px] lg:text-[96px] font-bold leading-[0.95] text-white tracking-tight uppercase">
                 YOUTOPIA
             </h1>
-            <p id="cs-headline" class="mt-6 text-[16px] sm:text-[18px] md:text-[20px] leading-[1.65] text-white/85 max-w-4xl font-sans">
+            <p id="cs-headline" class="mt-6 text-[16px] sm:text-[18px] md:text-[20px] leading-[1.68] text-white max-w-4xl font-sans font-normal">
                 Designing six interconnected products from consumer onboarding to restaurant operations around a shared AI nutrition platform still being defined.
             </p>
         </header>
 
         <!-- Project Metadata Card (Role, Duration, Team, Shipped, Responsibilities) -->
-        <section class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 sm:p-8 text-white shadow-xl mt-8 mb-12 sm:mb-16">
+        <section class="border-y border-white/20 py-8 text-white mt-8 mb-12 sm:mb-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                 <div>
-                    <span class="text-[10.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-medium">ROLE</span>
+                    <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">ROLE</span>
                     <div id="cs-meta-role" class="text-white text-[14px] sm:text-[15px] font-medium leading-[1.6]">Product & Brand Designer</div>
                 </div>
                 <div>
-                    <span class="text-[10.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-medium">DURATION</span>
+                    <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">DURATION</span>
                     <div id="cs-meta-duration" class="text-white text-[14px] sm:text-[15px] font-medium leading-[1.6]">Nov 2025 – Mar 2026</div>
                 </div>
                 <div>
-                    <span class="text-[10.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-medium">TEAM</span>
-                    <div id="cs-meta-team" class="text-white/90 text-[14px] sm:text-[15px] leading-[1.6]">Founder · PM · Architects · Principal Engineers · Marketing</div>
+                    <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">TEAM</span>
+                    <div id="cs-meta-team" class="text-white text-[14px] sm:text-[15px] leading-[1.6] font-medium">Founder · PM · Architects · Principal Engineers · Marketing</div>
                 </div>
                 <div>
-                    <span class="text-[10.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-medium">SHIPPED</span>
-                    <div id="cs-meta-shipped" class="text-[#FFD025] font-semibold text-[14px] sm:text-[15px] leading-[1.6]">Validated Product Architecture</div>
+                    <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">SHIPPED</span>
+                    <div id="cs-meta-shipped" class="text-white font-medium text-[14px] sm:text-[15px] leading-[1.6]">Validated Product Architecture</div>
                 </div>
             </div>
             
             <div class="pt-6 border-t border-white/15">
-                <span class="text-[10.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-medium">RESPONSIBILITIES</span>
-                <div id="cs-meta-responsibilities" class="text-white/85 text-[14px] sm:text-[15px] leading-[1.65]">Product strategy · Information architecture · Interaction design · UX writing · Design system · Engineering collaboration</div>
+                <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">RESPONSIBILITIES</span>
+                <div id="cs-meta-responsibilities" class="text-white text-[14px] sm:text-[15px] leading-[1.65] font-normal">Product strategy · Information architecture · Interaction design · UX writing · Design system · Engineering collaboration</div>
             </div>
         </section>
 
@@ -420,7 +608,7 @@
                 </svg>
             </div>
             
-            <span class="inline-block text-[11px] uppercase tracking-[0.22em] font-mono text-[#FFD025] font-semibold mb-2">Restricted Access</span>
+            <span class="inline-block text-[11px] uppercase tracking-[0.22em] font-mono text-[#FFD025] font-bold mb-2">Restricted Access</span>
             <h2 class="font-display text-[26px] sm:text-[32px] font-bold leading-tight text-white uppercase tracking-tight mb-6">PROTECTED CASE STUDY</h2>
 
             <form id="cs-password-form" class="space-y-4" onsubmit="handlePasswordSubmit(event)">
@@ -430,12 +618,12 @@
                         id="cs-password-input"
                         placeholder="Enter password"
                         autocomplete="current-password"
-                        class="w-full pl-4 pr-11 py-3 rounded-xl border border-white/30 bg-white/10 text-white placeholder:text-white/50 text-sm focus:outline-none focus:border-[#FFD025] transition-colors"
+                        class="w-full pl-4 pr-11 py-3 rounded-xl border border-white/40 bg-white/15 text-white placeholder:text-white/70 text-sm focus:outline-none focus:border-[#FFD025] transition-colors font-medium"
                     />
                     <button
                         type="button"
                         onclick="toggleCsPasswordVisibility()"
-                        class="absolute right-3.5 p-1 text-white/60 hover:text-white transition-colors cursor-pointer focus:outline-none"
+                        class="absolute right-3.5 p-1 text-white hover:text-[#FFD025] transition-colors cursor-pointer focus:outline-none"
                         aria-label="Toggle password visibility"
                         title="Toggle password visibility"
                     >
@@ -450,13 +638,13 @@
                     </button>
                 </div>
                 
-                <div id="cs-password-error" class="hidden text-[#ff8080] text-xs font-mono py-0.5">
+                <div id="cs-password-error" class="hidden text-[#FFD025] bg-white/15 border border-white/25 px-3 py-1.5 rounded-lg text-xs font-mono font-bold">
                     Incorrect password. Please try again.
                 </div>
 
                 <button
                     type="submit"
-                    class="w-full py-3 px-6 rounded-xl bg-[#FFD025] text-black font-mono text-xs uppercase tracking-[0.16em] font-semibold hover:bg-white active:scale-[0.99] transition-all cursor-pointer shadow-md"
+                    class="w-full py-3 px-6 rounded-xl bg-[#FFD025] text-black font-mono text-xs uppercase tracking-[0.16em] font-bold hover:bg-white active:scale-[0.99] transition-all cursor-pointer shadow-md"
                 >
                     Unlock Case Study
                 </button>
@@ -479,9 +667,9 @@
     </main>
 
     <!-- Minimalist Footer matching App.tsx -->
-    <footer class="border-t border-white/20 py-10 px-5 sm:px-8 md:px-12 lg:px-16 text-white/70 font-mono text-[11px] tracking-[0.18em] uppercase flex flex-col sm:flex-row items-center justify-between gap-4 max-w-[1200px] mx-auto bg-transparent">
+    <footer class="border-t border-white/20 py-10 px-5 sm:px-8 md:px-12 lg:px-16 text-white font-medium font-mono text-[11.5px] tracking-[0.18em] uppercase flex flex-col sm:flex-row items-center justify-between gap-4 max-w-[1200px] mx-auto bg-transparent">
         <span>© 2026 Keerthana Ravichandran</span>
-        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="text-white/70 hover:text-[#FFD025] transition-colors cursor-pointer font-medium">
+        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="text-white hover:text-[#FFD025] transition-colors cursor-pointer font-semibold">
             Back to top ↑
         </button>
     </footer>
@@ -490,7 +678,6 @@
     <script>
         const PROJECTS = {
             youtopia: {
-                eyebrow: 'CASE STUDY 01 · AI NUTRITION PLATFORM · NOV 2025 – MAR 2026 · PRODUCT & BRAND DESIGNER',
                 title: 'YOUTOPIA',
                 headline: 'Designing six interconnected products from consumer onboarding to restaurant operations around a shared AI nutrition platform still being defined.',
                 projectType: 'Early-stage AI product',
@@ -1216,7 +1403,7 @@
                 duration: 'Jan 2025 – May 2025',
                 team: 'Engineers, Research Directors',
                 responsibilities: 'UX research · User interviews · Interaction ideation · VR usability testing · Design system development · Engineering collaboration',
-                shipped: '<a href="https://revlrstudio.com/" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-80 transition-opacity">REVLR↗</a>',
+                shipped: '<a href="https://revlrstudio.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-white hover:text-[#FFD025] underline underline-offset-2 transition-colors font-medium"><span>REVLR</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>',
                 prev: 'youtopia',
                 next: 'myblockcounts',
                 heroHTML: `
@@ -1326,7 +1513,7 @@
                 duration: 'Dec 2024 – Jan 2025',
                 team: 'BlueMeta × T.H.E. EJ Lab',
                 responsibilities: 'UX research · Information architecture · Visual design · Design system · Usability testing · Accessibility audits',
-                shipped: '<a href="https://play.google.com/store/apps/details?id=com.anonymous.MyBlockCounts&hl=en_US" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-80 transition-opacity">MyBlockCounts↗</a>',
+                shipped: '<a href="https://play.google.com/store/apps/details?id=com.anonymous.MyBlockCounts&hl=en_US" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-white hover:text-[#FFD025] underline underline-offset-2 transition-colors font-medium"><span>MyBlockCounts</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>',
                 prev: 'revlr',
                 next: 'justickets',
                 heroHTML: `
@@ -1722,7 +1909,7 @@
                 duration: 'Aug 2022 – Jan 2023',
                 team: 'Qube Cinema Technologies',
                 responsibilities: 'Mobile UI/UX · Seat Selection Canvas · E-Commerce Checkout · Design System',
-                shipped: '<a href="https://play.google.com/store/apps/details?id=in.justickets.android&hl=en_US" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-80 transition-opacity">JUSTICKETS↗</a>',
+                shipped: '<a href="https://play.google.com/store/apps/details?id=in.justickets.android&hl=en_US" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-white hover:text-[#FFD025] underline underline-offset-2 transition-colors font-medium"><span>JUSTICKETS</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-[#FFD025] shrink-0" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>',
                 prev: 'myblockcounts',
                 next: 'youtopia',
                 heroHTML: `
@@ -1802,7 +1989,7 @@
 
             if (data.ndaNotice) {
                 sections.push(`
-                    <div class="p-4 sm:p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md text-[13px] md:text-[14px] text-white/90 w-full font-mono shadow-md">
+                    <div class="p-4 sm:p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md text-[13.5px] md:text-[14.5px] text-white w-full font-mono shadow-md font-medium">
                         <span class="font-bold text-[#FFD025] uppercase tracking-wider">NDA Note:</span> ${data.ndaNotice}
                     </div>
                 `);
@@ -1812,7 +1999,7 @@
             sections.push(`
                 <section class="space-y-4">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">CONTEXT</h2>
-                    <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white/85 w-full">
+                    <p class="text-[15px] sm:text-[16px] md:text-[17px] leading-[1.72] text-white w-full font-normal">
                         ${data.context}
                     </p>
                 </section>
@@ -1820,8 +2007,8 @@
 
             // 2. PROBLEM DEFINITION
             let problemPointsHTML = data.problem.points.map((pt, idx) => `
-                <div class="p-4 sm:p-5 text-[13.5px] sm:text-[15px] leading-[1.65] text-white/90 flex items-start gap-3 sm:gap-4 hover:bg-white/5 transition-colors">
-                    <span class="font-mono text-[11px] sm:text-xs md:text-sm font-semibold text-[#FFD025] mt-0.5 shrink-0 min-w-[22px]">0${idx + 1}.</span>
+                <div class="p-4 sm:p-5 text-[14px] sm:text-[15px] leading-[1.68] text-white flex items-start gap-3 sm:gap-4 hover:bg-white/5 transition-colors font-normal">
+                    <span class="font-mono text-[12px] sm:text-xs md:text-sm font-bold text-[#FFD025] mt-0.5 shrink-0 min-w-[24px]">0${idx + 1}.</span>
                     <span class="break-words">${pt}</span>
                 </div>
             `).join('');
@@ -1831,10 +2018,10 @@
             sections.push(`
                 <section class="space-y-5 sm:space-y-6">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">PROBLEM DEFINITION</h2>
-                    <p class="text-[14.5px] sm:text-[15.5px] md:text-[16px] font-medium leading-[1.65] text-white w-full">
+                    <p class="text-[15px] sm:text-[16.5px] md:text-[17px] font-medium leading-[1.68] text-white w-full">
                         ${data.problem.headline}
                     </p>
-                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl divide-y divide-white/15 overflow-hidden w-full shadow-lg">
+                    <div class="divide-y divide-white/15 border-y border-white/20 w-full">
                         ${problemPointsHTML}
                     </div>
                     ${problemCard}
@@ -1846,10 +2033,9 @@
             let insightsHTML = (data.research.insights && data.research.insights.length > 0) ? `
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-2 sm:pt-4">
                     ${data.research.insights.map(item => `
-                        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-6 shadow-md">
-                            <div class="w-2.5 h-2.5 rounded-full bg-[#FFD025] mb-3 sm:mb-4 shadow-[0_0_8px_rgba(255,208,37,0.5)]"></div>
-                            <h3 class="font-display font-bold text-white text-[15px] sm:text-[16px] mb-1.5 sm:mb-2 leading-snug">${item.title}</h3>
-                            <p class="text-[13px] sm:text-[14px] leading-[1.65] text-white/80">${item.description}</p>
+                        <div class="border-t-2 border-[#FFD025] pt-4 sm:pt-5">
+                            <h3 class="font-display font-bold text-white text-[15.5px] sm:text-[16.5px] mb-1.5 sm:mb-2 leading-snug">${item.title}</h3>
+                            <p class="text-[13.5px] sm:text-[14.5px] leading-[1.65] text-white font-normal">${item.description}</p>
                         </div>
                     `).join('')}
                 </div>
@@ -1858,7 +2044,7 @@
             let researchCard = data.research.researchHTML ? data.research.researchHTML : (data.research.placeholder ? `<div class="image-placeholder-card">${data.research.placeholder}</div>` : '');
 
             let researchParagraphs = data.research.intro.split('\n\n').map(p => `
-                <p class="text-[14px] sm:text-[15px] md:text-[16px] leading-[1.65] text-white/85 w-full mb-3 sm:mb-4">
+                <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full mb-3 sm:mb-4 font-normal">
                     ${p.trim().replace(/\n/g, '<br/>')}
                 </p>
             `).join('');
@@ -1874,22 +2060,26 @@
                 </section>
             `);
 
-            // 4. DESIGN STRATEGY (Conditional)
+            // 4. DESIGN STRATEGY (In the style of homepage Design Principles)
             if (data.strategy && data.strategy.length > 0) {
                 let strategyHTML = data.strategy.map((item, idx) => `
-                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-6 shadow-md flex items-start gap-4 sm:gap-6">
-                        <span class="font-display text-[24px] sm:text-[28px] md:text-[34px] text-[#FFD025] font-bold leading-none shrink-0">0${idx + 1}</span>
-                        <div>
-                            <h3 class="font-display font-bold text-white text-[15px] sm:text-[16px] mb-1">${item.title}</h3>
-                            <p class="text-[13px] sm:text-[14px] leading-[1.65] text-white/80">${item.description}</p>
-                        </div>
+                    <div class="flex flex-col justify-start">
+                        <span class="font-display text-4xl sm:text-5xl lg:text-6xl text-[#FFD025] mb-3 font-bold leading-none">0${idx + 1}</span>
+                        <h3 class="font-display text-[20px] sm:text-[22px] md:text-[24px] font-bold text-white leading-[1.2]">
+                            ${item.title}
+                        </h3>
+                        <p class="text-[14.5px] sm:text-[15.5px] leading-[1.68] text-white mt-3 font-normal [text-shadow:_0_1px_2px_rgba(0,18,48,0.35)]">
+                            ${item.description}
+                        </p>
                     </div>
                 `).join('');
 
                 sections.push(`
-                    <section class="space-y-5 sm:space-y-6">
-                        <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">DESIGN STRATEGY</h2>
-                        <div class="space-y-4 sm:space-y-5 w-full">
+                    <section class="border-t border-white/15 pt-8 sm:pt-12 pb-2">
+                        <h2 class="font-display text-[28px] sm:text-[38px] md:text-[48px] font-bold leading-[1.08] text-white mb-8 sm:mb-12 tracking-tight uppercase">
+                            DESIGN STRATEGY
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 lg:gap-14 w-full">
                             ${strategyHTML}
                         </div>
                     </section>
@@ -1899,7 +2089,7 @@
             // 5. KEY DESIGN DECISIONS
             let decisionsHTML = data.decisions.map(dec => {
                 let bodyParagraphs = dec.body.split('\n\n').map(p => `
-                    <p class="text-[13.5px] sm:text-[14.5px] md:text-[15px] leading-[1.65] text-white/85">
+                    <p class="text-[14px] sm:text-[15px] md:text-[15.5px] leading-[1.7] text-white font-normal">
                         ${p.trim().replace(/\n/g, '<br/>')}
                     </p>
                 `).join('');
@@ -1907,11 +2097,11 @@
                 if (data.decisionsLayout === "stacked" || dec.layout === "stacked") {
                     let imageSrc = dec.image || "/JT_Offer.webp";
                     return `
-                        <div class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl my-6 sm:my-8 space-y-6 sm:space-y-8">
+                        <div class="w-full py-8 sm:py-10 border-b border-white/15 my-4 space-y-6 sm:space-y-8">
                             <!-- Decision Text & Impact (Top) -->
                             <div class="space-y-4 sm:space-y-6 w-full">
                                 <div>
-                                    <div class="font-mono text-[#FFD025] text-[11px] sm:text-[12px] md:text-[13px] tracking-[0.15em] uppercase font-semibold mb-2 sm:mb-3">
+                                    <div class="font-mono text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] tracking-[0.15em] uppercase font-bold mb-2 sm:mb-3">
                                         ${dec.num}
                                     </div>
                                     <h3 class="font-display font-bold text-[24px] sm:text-[28px] md:text-[32px] leading-[1.18] text-white uppercase mb-4 sm:mb-6">
@@ -1922,8 +2112,8 @@
                                     </div>
                                 </div>
                                 ${dec.impact ? `
-                                <div class="inline-block border border-[#FFD025]/40 bg-[#FFD025]/10 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 mt-2 sm:mt-4 w-full">
-                                    <span class="text-[#FFD025] text-[11px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.06em] uppercase leading-snug block">
+                                <div class="inline-block border border-[#FFD025]/50 bg-[#FFD025]/15 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 mt-2 sm:mt-4 w-full">
+                                    <span class="text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] font-mono font-bold tracking-[0.06em] uppercase leading-snug block">
                                         ${dec.impact}
                                     </span>
                                 </div>
@@ -1940,12 +2130,12 @@
                 if (data.decisionsLayout === "side-card" || dec.layout === "side-card") {
                     let imageSrc = dec.image || "/JT_Offer.webp";
                     return `
-                        <div class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl my-6 sm:my-8">
+                        <div class="w-full py-8 sm:py-10 border-b border-white/15 my-4">
                             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-12 items-center">
                                 <!-- Left Column (6 Cols): Content & Impact -->
                                 <div class="lg:col-span-6 flex flex-col justify-between h-full space-y-4 sm:space-y-6">
                                     <div>
-                                        <div class="font-mono text-[#FFD025] text-[11px] sm:text-[12px] md:text-[13px] tracking-[0.15em] uppercase font-semibold mb-2 sm:mb-3">
+                                        <div class="font-mono text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] tracking-[0.15em] uppercase font-bold mb-2 sm:mb-3">
                                             ${dec.num}
                                         </div>
                                         <h3 class="font-display font-bold text-[24px] sm:text-[28px] md:text-[32px] leading-[1.18] text-white uppercase mb-4 sm:mb-6">
@@ -1956,8 +2146,8 @@
                                         </div>
                                     </div>
                                     ${dec.impact ? `
-                                    <div class="inline-block border border-[#FFD025]/40 bg-[#FFD025]/10 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 mt-4 sm:mt-6 w-full">
-                                        <span class="text-[#FFD025] text-[11px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.06em] uppercase leading-snug block">
+                                    <div class="inline-block border border-[#FFD025]/50 bg-[#FFD025]/15 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 mt-4 sm:mt-6 w-full">
+                                        <span class="text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] font-mono font-bold tracking-[0.06em] uppercase leading-snug block">
                                             ${dec.impact}
                                         </span>
                                     </div>
@@ -1977,7 +2167,7 @@
                 return `
                     <div class="space-y-4 sm:space-y-6 w-full">
                         <div>
-                            <div class="font-mono text-[#FFD025] text-[11px] sm:text-[12px] md:text-[13px] tracking-[0.15em] uppercase font-semibold mb-1.5 sm:mb-2">${dec.num}</div>
+                            <div class="font-mono text-[#FFD025] text-[11.5px] sm:text-[12.5px] md:text-[13px] tracking-[0.15em] uppercase font-bold mb-1.5 sm:mb-2">${dec.num}</div>
                             <h3 class="font-display font-bold text-[20px] sm:text-[24px] md:text-[28px] leading-[1.25] text-white mb-2 sm:mb-3">
                                 ${dec.title}
                             </h3>
@@ -1985,8 +2175,8 @@
                                 ${bodyParagraphs}
                             </div>
                             ${dec.impact ? `
-                            <div class="inline-block border border-[#FFD025]/40 bg-[#FFD025]/10 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 mt-3">
-                                <span class="text-[#FFD025] text-[10.5px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.05em] uppercase">
+                            <div class="inline-block border border-[#FFD025]/50 bg-[#FFD025]/15 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 mt-3">
+                                <span class="text-[#FFD025] text-[11px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.05em] uppercase">
                                     ${dec.impact}
                                 </span>
                             </div>
@@ -2015,7 +2205,7 @@
             sections.push(`
                 <section class="space-y-4">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">${systemTitle}</h2>
-                    <p class="text-[14px] sm:text-[15px] md:text-[16px] leading-[1.65] text-white/85 w-full">
+                    <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                         ${data.system}
                     </p>
                     ${sysCard}
@@ -2028,7 +2218,7 @@
                 sections.push(`
                     <section class="space-y-4">
                         <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">VALIDATION</h2>
-                        <p class="text-[14px] sm:text-[15px] md:text-[16px] leading-[1.65] text-white/85 w-full">
+                        <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                             ${data.validation}
                         </p>
                         ${valCard}
@@ -2037,10 +2227,10 @@
             }
 
             // 8. OUTCOME
-            let outcomeSubtext = data.outcome.subtext ? `<p class="text-[11px] sm:text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-semibold">${data.outcome.subtext}</p>` : '';
+            let outcomeSubtext = data.outcome.subtext ? `<p class="text-[11.5px] sm:text-[12.5px] md:text-[13px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-bold">${data.outcome.subtext}</p>` : '';
             let outcomePointsHTML = data.outcome.points.map((pt, idx) => `
-                <div class="p-4 sm:p-5 text-[13.5px] sm:text-[15px] leading-[1.65] text-white/90 flex items-start gap-3 sm:gap-4 hover:bg-white/5 transition-colors">
-                    <span class="font-mono text-[11px] sm:text-xs md:text-sm font-semibold text-[#FFD025] mt-0.5 shrink-0 min-w-[22px]">0${idx + 1}.</span>
+                <div class="p-4 sm:p-5 text-[14px] sm:text-[15px] leading-[1.68] text-white flex items-start gap-3 sm:gap-4 hover:bg-white/5 transition-colors font-normal">
+                    <span class="font-mono text-[12px] sm:text-xs md:text-sm font-bold text-[#FFD025] mt-0.5 shrink-0 min-w-[24px]">0${idx + 1}.</span>
                     <span class="break-words">${pt}</span>
                 </div>
             `).join('');
@@ -2049,7 +2239,7 @@
                 <section class="space-y-5 sm:space-y-6">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">OUTCOME</h2>
                     ${outcomeSubtext}
-                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl divide-y divide-white/15 overflow-hidden w-full shadow-lg">
+                    <div class="divide-y divide-white/15 border-y border-white/20 w-full">
                         ${outcomePointsHTML}
                     </div>
                 </section>
@@ -2060,7 +2250,7 @@
             sections.push(`
                 <section class="space-y-4">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">REFLECTION</h2>
-                    <p class="text-[14px] sm:text-[15px] md:text-[16px] leading-[1.65] text-white/85 w-full">
+                    <p class="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] leading-[1.7] text-white w-full font-normal">
                         ${data.reflection}
                     </p>
                     ${reflectionCard}
@@ -2071,14 +2261,14 @@
             sections.push(`
                 <section class="space-y-5 sm:space-y-6">
                     <h2 class="font-display text-[24px] sm:text-[32px] md:text-[38px] font-bold text-white tracking-tight uppercase">OWNERSHIP</h2>
-                    <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 sm:p-8 shadow-xl space-y-5 w-full">
+                    <div class="border-y border-white/20 py-6 sm:py-8 space-y-5 w-full">
                         <div>
-                            <span class="text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-semibold block mb-1.5">I LED</span>
-                            <p class="text-[13.5px] sm:text-[14.5px] md:text-[15px] leading-[1.65] text-white/90">${data.ownership.led}</p>
+                            <span class="text-[11px] sm:text-[11.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-bold block mb-1.5">I LED</span>
+                            <p class="text-[14px] sm:text-[15px] md:text-[15.5px] leading-[1.68] text-white font-normal">${data.ownership.led}</p>
                         </div>
                         <div>
-                            <span class="text-[10.5px] sm:text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-semibold block mb-1.5">CO-DEFINED</span>
-                            <p class="text-[13.5px] sm:text-[14.5px] md:text-[15px] leading-[1.65] text-white/90">${data.ownership.codefined}</p>
+                            <span class="text-[11px] sm:text-[11.5px] uppercase tracking-[0.2em] font-mono text-[#FFD025] font-bold block mb-1.5">CO-DEFINED</span>
+                            <p class="text-[14px] sm:text-[15px] md:text-[15.5px] leading-[1.68] text-white font-normal">${data.ownership.codefined}</p>
                         </div>
                     </div>
                 </section>
@@ -2187,6 +2377,22 @@
             if (contentBody) {
                 contentBody.innerHTML = renderCaseStudyHTML(project.content);
             }
+
+            // Highlight active project in desktop dropdown & mobile drawer
+            document.querySelectorAll('[data-proj]').forEach(el => {
+                if (el.getAttribute('data-proj') === projectId) {
+                    el.classList.add('bg-white/20', 'text-[#FFD025]', 'font-semibold');
+                } else {
+                    el.classList.remove('bg-white/20', 'text-[#FFD025]', 'font-semibold');
+                }
+            });
+            document.querySelectorAll('[data-mobile-proj]').forEach(el => {
+                if (el.getAttribute('data-mobile-proj') === projectId) {
+                    el.classList.add('bg-white/20', 'text-[#FFD025]', 'font-semibold');
+                } else {
+                    el.classList.remove('bg-white/20', 'text-[#FFD025]', 'font-semibold');
+                }
+            });
         }
 
         window.addEventListener('DOMContentLoaded', () => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface PhotoItem {
   id: string;
@@ -67,6 +68,17 @@ type ScreenTier = 'mobile-sm' | 'mobile' | 'mobile-lg' | 'tablet' | 'desktop';
 export function PeekPhotos() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [screenTier, setScreenTier] = useState<ScreenTier>('desktop');
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      setCanHover(mq.matches);
+      const listener = (e: MediaQueryListEvent) => setCanHover(e.matches);
+      mq.addEventListener('change', listener);
+      return () => mq.removeEventListener('change', listener);
+    }
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -97,30 +109,36 @@ export function PeekPhotos() {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('touchend', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('touchend', handleClickOutside);
     };
   }, []);
 
-  // When hovered/tapped, lift up almost all of the submerged portion so it pops into full view
+  // When hovered/tapped, lift up sufficiently so the full polaroid pops cleanly above the section boundary
   const liftDistance =
     screenTier === 'mobile-sm'
-      ? -36
+      ? -72
       : screenTier === 'mobile'
-      ? -46
+      ? -84
       : screenTier === 'mobile-lg'
-      ? -56
+      ? -98
       : screenTier === 'tablet'
-      ? -90
-      : -132;
+      ? -115
+      : -136;
 
   return (
     <div
       id="peek-photos-container"
-      className="relative z-10 w-full max-w-[1400px] mx-auto px-2 min-[380px]:px-4 sm:px-8 mt-10 sm:mt-16 md:mt-20 -mb-[34px] min-[360px]:-mb-[40px] min-[400px]:-mb-[46px] min-[480px]:-mb-[56px] sm:-mb-[76px] md:-mb-[96px] lg:-mb-[118px] xl:-mb-[138px] select-none"
+      className="relative z-10 w-full max-w-[1400px] mx-auto px-2 min-[380px]:px-4 sm:px-8 mt-8 sm:mt-16 md:mt-20 -mb-[34px] min-[360px]:-mb-[40px] min-[400px]:-mb-[46px] min-[480px]:-mb-[56px] sm:-mb-[76px] md:-mb-[96px] lg:-mb-[118px] xl:-mb-[138px] select-none overflow-x-clip"
     >
+      {/* Mobile tap helper badge */}
+      <div className="flex justify-center items-center gap-1.5 mb-2 sm:hidden text-white/85 font-mono text-[11px] tracking-wider uppercase pointer-events-none">
+        <span>Tap photo to view</span>
+        <ArrowUpRight size={13} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
+      </div>
+
       <div className="flex justify-center items-end -space-x-2 min-[360px]:-space-x-2.5 min-[420px]:-space-x-3.5 sm:-space-x-5 md:-space-x-6 lg:-space-x-8 xl:-space-x-10 pointer-events-none">
         {PHOTOS.map((photo) => {
           const isHovered = hoveredId === photo.id;
@@ -134,23 +152,26 @@ export function PeekPhotos() {
               tabIndex={0}
               aria-label={photo.alt}
               style={{
-                zIndex: isHovered ? 30 : photo.zIndex,
+                zIndex: isHovered ? 35 : photo.zIndex,
               }}
               initial={false}
               animate={{
                 y: isHovered ? liftDistance : 0,
                 rotate: isHovered ? photo.hoverRotate : photo.defaultRotate,
-                scale: isHovered ? (screenTier.startsWith('mobile') ? 1.08 : 1.06) : 1,
+                scale: isHovered ? (screenTier.startsWith('mobile') ? 1.18 : 1.08) : 1,
               }}
               transition={{
                 type: 'spring',
-                stiffness: 360,
-                damping: 25,
-                mass: 0.8,
+                stiffness: 380,
+                damping: 24,
+                mass: 0.75,
               }}
-              onMouseEnter={() => setHoveredId(photo.id)}
-              onMouseLeave={() => setHoveredId((current) => (current === photo.id ? null : current))}
-              onClick={() => setHoveredId((current) => (current === photo.id ? null : photo.id))}
+              onMouseEnter={canHover ? () => setHoveredId(photo.id) : undefined}
+              onMouseLeave={canHover ? () => setHoveredId((current) => (current === photo.id ? null : current)) : undefined}
+              onClick={(e) => {
+                e.stopPropagation();
+                setHoveredId((current) => (current === photo.id ? null : photo.id));
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
@@ -162,12 +183,12 @@ export function PeekPhotos() {
               <div
                 className={`bg-white p-1 sm:p-1.5 md:p-2 rounded-[3px] sm:rounded-md md:rounded-lg border border-[#DFE7EF] transition-shadow duration-300 ${
                   isHovered
-                    ? 'shadow-[0_20px_40px_-6px_rgba(0,0,0,0.25),0_10px_20px_-3px_rgba(0,0,0,0.15)]'
+                    ? 'shadow-[0_22px_44px_-6px_rgba(0,0,0,0.35),0_12px_24px_-4px_rgba(0,0,0,0.2)]'
                     : 'shadow-[0_4px_14px_-2px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.05)]'
                 }`}
               >
                 {/* Photo frame with responsive dimensions and fixed 4/5 aspect ratio */}
-                <div className="w-[48px] min-[360px]:w-[54px] min-[400px]:w-[62px] min-[480px]:w-[74px] sm:w-28 md:w-36 lg:w-44 xl:w-52 aspect-[4/5] overflow-hidden rounded-[1px] sm:rounded-xs bg-slate-100">
+                <div className="w-[42px] min-[360px]:w-[48px] min-[400px]:w-[56px] min-[480px]:w-[68px] sm:w-28 md:w-36 lg:w-44 xl:w-52 aspect-[4/5] overflow-hidden rounded-[1px] sm:rounded-xs bg-slate-100">
                   <img
                     src={photo.src}
                     alt={photo.alt}
