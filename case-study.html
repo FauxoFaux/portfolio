@@ -248,11 +248,17 @@
             color: #FFFFFF !important;
         }
 
-        /* In-diagram white containers converted to sleek frosted glass */
-        .bg-white, .dark\:bg-\[\#181824\], .dark\:bg-\[\#191924\] {
-            background-color: rgba(255, 255, 255, 0.08) !important;
-            border-color: rgba(255, 255, 255, 0.2) !important;
-            color: #FFFFFF !important;
+        /* Ensure opaque white containers keep their solid box with AA-legible dark typography */
+        .bg-white {
+            background-color: #FFFFFF !important;
+            color: #111118 !important;
+        }
+        .bg-white p, .bg-white span, .bg-white div, .bg-white li, .bg-white td, .bg-white th,
+        .bg-white h1, .bg-white h2, .bg-white h3, .bg-white h4, .bg-white h5, .bg-white h6 {
+            color: #111118 !important;
+        }
+        .bg-white [class*="text-white"], .bg-white .text-muted, .bg-white .text-muted-fg {
+            color: #334155 !important;
         }
 
         .text-fg { color: #FFFFFF !important; }
@@ -263,12 +269,10 @@
         /* SVG Table Header on Yellow Banner */
         svg path.fill-\[\#2036B8\] + text,
         svg path.dark\:fill-\[\#5A6BFF\] + text,
-        svg path.fill-\[\#2036B8\] ~ text.fill-white,
-        svg path.dark\:fill-\[\#5A6BFF\] ~ text.fill-white,
         svg rect.fill-\[\#2036B8\] + text,
         svg rect.dark\:fill-\[\#5A6BFF\] + text,
-        svg g:has(rect.fill-\[\#2036B8\]) text.fill-white,
-        svg g:has(path.fill-\[\#2036B8\]) text.fill-white {
+        svg path.fill-\[\#2036B8\] ~ text.fill-white:not(g text),
+        svg path.dark\:fill-\[\#5A6BFF\] ~ text.fill-white:not(g text) {
             fill: #000000 !important;
             font-weight: 800 !important;
         }
@@ -560,20 +564,20 @@
     </script>
 
     <!-- Main Case Study Content Shell -->
-    <main class="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-12 lg:px-16 py-10 sm:py-16 md:py-20">
+    <main class="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-12 lg:px-16 pt-8 sm:pt-14 md:pt-18 pb-12 sm:pb-16 md:pb-20">
 
         <!-- Case Study Header -->
-        <header class="pb-6 sm:pb-8">
+        <header class="pb-0">
             <h1 id="cs-title" class="font-display text-[44px] sm:text-[68px] md:text-[84px] lg:text-[96px] font-bold leading-[0.95] text-white tracking-tight uppercase">
                 YOUTOPIA
             </h1>
-            <p id="cs-headline" class="mt-6 text-[16px] sm:text-[18px] md:text-[20px] leading-[1.68] text-white max-w-4xl font-sans font-normal">
+            <p id="cs-headline" class="mt-4 sm:mt-6 text-[16px] sm:text-[18px] md:text-[20px] leading-[1.68] text-white max-w-4xl font-sans font-normal">
                 Designing six interconnected products from consumer onboarding to restaurant operations around a shared AI nutrition platform still being defined.
             </p>
         </header>
 
         <!-- Project Metadata Card (Role, Duration, Team, Shipped, Responsibilities) -->
-        <section class="border-y border-white/20 py-8 text-white mt-8 mb-12 sm:mb-16">
+        <section class="border-y border-white/20 py-8 text-white mt-8 sm:mt-12 mb-12 sm:mb-16">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
                 <div>
                     <span class="text-[11px] uppercase tracking-[0.2em] font-mono text-[#FFD025] block mb-1.5 font-bold">ROLE</span>
@@ -1433,8 +1437,8 @@
                         ],
                         placeholder: "Research & discovery — spatial hierarchy & control placement studies in VR",
                         researchHTML: `
-                            <div class="w-full rounded-2xl overflow-hidden bg-white p-4 sm:p-8 my-8 shadow-xl border border-white/20">
-                                <img src="/REVLR/R_Research.webp" alt="REVLR Research and Discovery" class="w-full h-auto object-contain mx-auto" loading="lazy" decoding="async" />
+                            <div class="w-full rounded-2xl overflow-hidden my-8 shadow-2xl border border-white/20 bg-white/10 backdrop-blur-md">
+                                <img src="/REVLR/R_Research.webp" alt="REVLR Research and Discovery" class="w-full h-auto block" loading="lazy" decoding="async" />
                             </div>
                         `
                     },
@@ -1468,8 +1472,8 @@
                     ],
                     decisionsPlaceholder: "Key design decisions — spatial interaction & control framework synthesis",
                     decisionsHTML: `
-                        <div class="w-full rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md p-4 sm:p-6 my-8 shadow-md flex justify-center items-center">
-                            <img src="/REVLR/R_Decisions.avif" alt="REVLR Key Design Decisions" class="w-full h-auto object-contain rounded-xl" />
+                        <div class="w-full rounded-2xl overflow-hidden my-8 shadow-2xl border border-white/20 bg-white/10 backdrop-blur-md">
+                            <img src="/REVLR/R_Decisions.avif" alt="REVLR Key Design Decisions" class="w-full h-auto block" loading="lazy" decoding="async" />
                         </div>
                     `,
                     system: "Built a scalable component library controls, interaction states, navigation patterns for consistency across VR and web. Prototyped in Framer with the Layerbeam VR plugin, tested directly on Meta Quest, since spatial interaction can't be fully evaluated from a flat screen.",
@@ -1477,8 +1481,8 @@
                     validation: "Ran usability and A/B testing directly in VR discoverability, navigation, and task flow with real users on-headset. Each round of findings fed directly back into the component system.",
                     validationPlaceholder: "Validation & usability testing — spatial navigation & task flow evaluation in VR headset",
                     validationHTML: `
-                        <div class="w-full rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md p-4 sm:p-6 my-8 shadow-md flex justify-center items-center">
-                            <img src="/REVLR/R_Validation.webp" alt="REVLR Usability Testing" class="w-full h-auto object-contain rounded-xl" />
+                        <div class="w-full rounded-2xl overflow-hidden my-8 shadow-2xl border border-white/20 bg-white/10 backdrop-blur-md">
+                            <img src="/REVLR/R_Validation.webp" alt="REVLR Usability Testing" class="w-full h-auto block" loading="lazy" decoding="async" />
                         </div>
                     `,
                     outcome: {
@@ -1494,8 +1498,8 @@
                     reflection: "In a traditional product, you organize information on a screen. In spatial computing, you're organizing attention and movement inside an environment researchers are trying to think inside of there's no existing pattern library to lean on. That constraint forced every decision to be tested directly in the medium, not assumed from habit.",
                     reflectionPlaceholder: "Reflection — spatial computing design learnings & attention mapping retrospective",
                     reflectionHTML: `
-                        <div class="w-full rounded-2xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md p-0 my-8 shadow-xl">
-                            <img src="/REVLR/R_Reflection.webp" alt="REVLR Reflection" class="w-full h-full object-cover" loading="lazy" decoding="async" />
+                        <div class="w-full rounded-2xl overflow-hidden my-8 shadow-2xl border border-white/20 bg-white/10 backdrop-blur-md">
+                            <img src="/REVLR/R_Reflection.webp" alt="REVLR Reflection" class="w-full h-auto block" loading="lazy" decoding="async" />
                         </div>
                     `,
                     ownership: {
@@ -2032,7 +2036,7 @@
                         <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-start shadow-lg hover:border-white/35 transition-all">
                             <div class="w-2.5 h-2.5 rounded-full bg-[#FFD025] mb-4 shrink-0"></div>
                             <h3 class="font-display font-bold text-white text-[16px] sm:text-[17.5px] leading-[1.3] mb-3">${item.title}</h3>
-                            <p class="text-[13.5px] sm:text-[14.5px] leading-[1.6] text-white/85 font-normal">${item.description}</p>
+                            <p class="text-[13.5px] sm:text-[14.5px] leading-[1.65] text-white font-normal">${item.description}</p>
                         </div>
                     `).join('')}
                 </div>
@@ -2072,7 +2076,7 @@
                 `).join('');
 
                 sections.push(`
-                    <section class="border-t border-white/15 pt-8 sm:pt-12 pb-2">
+                    <section class="pt-2 sm:pt-4 pb-2">
                         <h2 class="font-display text-[28px] sm:text-[38px] md:text-[48px] font-bold leading-[1.08] text-white mb-8 sm:mb-12 tracking-tight uppercase">
                             DESIGN STRATEGY
                         </h2>
@@ -2184,7 +2188,7 @@
                             </div>
                             ${dec.impact ? `
                             <div class="inline-block border border-[#FFD025]/50 bg-[#FFD025]/15 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 mt-3">
-                                <span class="text-[#FFD025] text-[11px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.05em] uppercase">
+                                <span class="text-[#FFD025] text-[11px] sm:text-[12px] md:text-[12.5px] font-mono font-bold tracking-[0.05em] uppercase leading-snug block">
                                     ${dec.impact}
                                 </span>
                             </div>

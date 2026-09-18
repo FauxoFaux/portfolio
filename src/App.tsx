@@ -443,134 +443,134 @@ export default function App() {
 
                 <ul className="divide-y divide-white/15 border-b border-white/15">
                   {/* 01 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">01.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">01.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           0→1 Product Design
                         </h3>
                       </div>
-                      <a href="case-study.html?project=youtopia" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=youtopia" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>Youtopia</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       From first concept to a shippable, scalable system.
                     </p>
                   </li>
 
                   {/* 02 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">02.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">02.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           AI Product Design
                         </h3>
                       </div>
-                      <a href="case-study.html?project=youtopia" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=youtopia" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>Youtopia</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Designing where automation leads and where humans stay in control.
                     </p>
                   </li>
 
                   {/* 03 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">03.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">03.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           VR / Emerging Interfaces
                         </h3>
                       </div>
-                      <a href="case-study.html?project=revlr" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=revlr" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>REVLR</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Building interaction models where no conventions exist yet.
                     </p>
                   </li>
 
                   {/* 04 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">04.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">04.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           Design Systems
                         </h3>
                       </div>
-                      <a href="case-study.html?project=justickets" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=justickets" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>Justickets</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Building components that hold up under real production constraints.
                     </p>
                   </li>
 
                   {/* 05 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">05.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">05.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           Accessibility Research
                         </h3>
                       </div>
-                      <a href="case-study.html?project=revlr" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=revlr" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>REVLR</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Designing and testing with accessibility as a starting constraint.
                     </p>
                   </li>
 
                   {/* 06 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">06.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">06.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           Civic Technology
                         </h3>
                       </div>
-                      <a href="case-study.html?project=myblockcounts" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="case-study.html?project=myblockcounts" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>My Block Counts</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Turning dense public data into something a resident can actually use.
                     </p>
                   </li>
 
                   {/* 07 */}
-                  <li className="py-2.5 xl:py-3 group hover:bg-white/10 px-2 rounded-lg -mx-2 transition-colors">
+                  <li className="py-3.5 sm:py-4 xl:py-4.5 group hover:bg-white/10 px-3 rounded-xl -mx-3 transition-colors">
                     <div className="flex items-baseline justify-between gap-3">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[11px] font-mono text-[#FFD025] font-bold shrink-0">07.</span>
-                        <h3 className="font-display text-[15px] sm:text-[16px] font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-[11px] sm:text-[11.5px] font-mono text-[#FFD025] font-bold shrink-0 min-w-[22px]">07.</span>
+                        <h3 className="font-display text-[15px] sm:text-[16px] xl:text-[16.5px] font-bold text-white group-hover:translate-x-0.5 transition-transform tracking-tight">
                           Course Design
                         </h3>
                       </div>
-                      <a href="https://www.outcomeschool.org/uiux-design" target="_blank" rel="noopener noreferrer" className="text-[11px] font-mono text-white hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2">
+                      <a href="https://www.outcomeschool.org/uiux-design" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[11.5px] font-mono text-white/90 hover:text-[#FFD025] font-semibold shrink-0 inline-flex items-center gap-1 transition-colors underline underline-offset-2 whitespace-nowrap">
                         <span>Outcome School</span>
                         <ArrowUpRight size={12} className="text-[#FFD025] shrink-0 stroke-[2.5]" aria-hidden="true" />
                       </a>
                     </div>
-                    <p className="text-[12.5px] sm:text-[13px] leading-snug text-white pl-4 mt-0.5 font-normal">
+                    <p className="text-[12.5px] sm:text-[13px] leading-relaxed text-white/85 pl-8 sm:pl-[31px] mt-1.5 font-normal">
                       Turning practiced design judgment into teachable curriculum.
                     </p>
                   </li>
@@ -581,7 +581,7 @@ export default function App() {
               <div className="lg:col-span-7">
                 {/* PROJECT 1: YOUTOPIA (WITH SELECTED WORK HEADING) */}
                 <div className="sticky top-[64px] sm:top-[70px] z-10 mb-8 sm:mb-12">
-                  <div className="pb-3 pt-2 mb-3 h-[52px] flex items-center">
+                  <div className="border-b border-white/20 pb-3 pt-2 mb-3 h-[52px] flex items-center">
                     <h2 className="font-display text-[22px] sm:text-[26px] lg:text-[24px] xl:text-[28px] font-bold leading-none text-white tracking-tight">
                       Selected Work
                     </h2>
@@ -649,7 +649,7 @@ export default function App() {
                           className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                           width={1584}
                           height={1042}
-                          loading="lazy"
+                          loading="eager"
                           decoding="async"
                         />
                       </div>
@@ -698,7 +698,7 @@ export default function App() {
                           className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                           width={1376}
                           height={768}
-                          loading="lazy"
+                          loading="eager"
                           decoding="async"
                         />
                       </div>
@@ -747,7 +747,8 @@ export default function App() {
                           className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                           width={1584}
                           height={1042}
-                          loading="lazy"
+                          loading="eager"
+                          fetchPriority="high"
                           decoding="async"
                         />
                       </div>
@@ -812,7 +813,7 @@ export default function App() {
 
         {/* ABOUT SECTION */}
         <section id="about" className="relative z-10 border-t border-white/15 pt-16 sm:pt-24 md:pt-36 pb-0 bg-white/5 backdrop-blur-xs overflow-x-clip">
-          <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 w-full">
+          <div className="mx-auto max-w-[1300px] px-5 sm:px-8 md:px-12 lg:px-16 w-full pb-4 sm:pb-20 md:pb-28 lg:pb-36">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14 items-center w-full">
               <div className="hidden md:flex md:col-span-5 justify-center">
                 <div className="relative rounded-2xl overflow-hidden max-w-[380px] w-full border border-white/30 bg-white/10 backdrop-blur-md shadow-2xl">

@@ -116,22 +116,22 @@ export function PeekPhotos() {
     };
   }, []);
 
-  // When hovered/tapped, lift up sufficiently so the full polaroid pops cleanly above the section boundary
+  // When hovered/tapped, lift up just enough so the full polaroid pops cleanly above the section boundary to show the full image
   const liftDistance =
     screenTier === 'mobile-sm'
-      ? -72
+      ? -38
       : screenTier === 'mobile'
-      ? -84
+      ? -46
       : screenTier === 'mobile-lg'
-      ? -98
+      ? -58
       : screenTier === 'tablet'
-      ? -115
-      : -136;
+      ? -92
+      : -130;
 
   return (
     <div
       id="peek-photos-container"
-      className="relative z-10 w-full max-w-[1400px] mx-auto px-2 min-[380px]:px-4 sm:px-8 mt-8 sm:mt-16 md:mt-20 -mb-[34px] min-[360px]:-mb-[40px] min-[400px]:-mb-[46px] min-[480px]:-mb-[56px] sm:-mb-[76px] md:-mb-[96px] lg:-mb-[118px] xl:-mb-[138px] select-none overflow-x-clip"
+      className="relative z-10 w-full max-w-[1400px] mx-auto px-2 min-[380px]:px-4 sm:px-8 mt-2 sm:mt-10 md:mt-12 -mb-[34px] min-[360px]:-mb-[40px] min-[400px]:-mb-[46px] min-[480px]:-mb-[56px] sm:-mb-[76px] md:-mb-[96px] lg:-mb-[118px] xl:-mb-[138px] select-none overflow-x-clip"
     >
       {/* Mobile tap helper badge */}
       <div className="flex justify-center items-center gap-1.5 mb-2 sm:hidden text-white/85 font-mono text-[11px] tracking-wider uppercase pointer-events-none">
@@ -158,13 +158,13 @@ export function PeekPhotos() {
               animate={{
                 y: isHovered ? liftDistance : 0,
                 rotate: isHovered ? photo.hoverRotate : photo.defaultRotate,
-                scale: isHovered ? (screenTier.startsWith('mobile') ? 1.18 : 1.08) : 1,
+                scale: isHovered ? (screenTier.startsWith('mobile') ? 1.03 : 1.06) : 1,
               }}
               transition={{
                 type: 'spring',
                 stiffness: 380,
-                damping: 24,
-                mass: 0.75,
+                damping: 26,
+                mass: 0.7,
               }}
               onMouseEnter={canHover ? () => setHoveredId(photo.id) : undefined}
               onMouseLeave={canHover ? () => setHoveredId((current) => (current === photo.id ? null : current)) : undefined}
